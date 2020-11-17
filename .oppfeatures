@@ -1,0 +1,67 @@
+<features cppSourceRoots="src"  definesFile="src/fico4omnet/features.h">
+    <feature
+        id="CAN_common"
+        name="CAN Common"
+        description = "The common part of CAN implementation"
+        initiallyEnabled = "true"
+        requires = ""
+        labels = ""
+        nedPackages = "
+                       fico4omnet.applications.can
+                       fico4omnet.buffer.can
+                       fico4omnet.bus.can
+                       fico4omnet.linklayer.can
+                       fico4omnet.nodes.can
+					   fico4omnet.scheduler.can
+                      "
+        extraSourceFolders = ""
+        compileFlags = "-DWITH_CAN_COMMON"
+        linkerFlags = ""
+        />
+    <feature
+        id="CAN_examples"
+        name="CAN examples"
+        description = "Examples for the CAN implementation"
+        initiallyEnabled = "true"
+        requires = "CAN_common"
+        labels = ""
+        nedPackages = "
+                       fico4omnet.examples.can
+                      "
+        extraSourceFolders = ""
+        linkerFlags = ""
+        />
+    <feature
+        id="FR_common"
+        name="FlexRay Common"
+        description = "The common part of FlexRay implementation"
+        initiallyEnabled = "true"
+        requires = ""
+        labels = ""
+        nedPackages = "
+                       fico4omnet.applications.flexray
+                       fico4omnet.buffer.flexray
+                       fico4omnet.bus.flexray
+                       fico4omnet.linklayer.flexray
+                       fico4omnet.nodes.flexray
+                       fico4omnet.scheduler.flexray
+                       fico4omnet.synchronisation.flexray
+                      "
+        extraSourceFolders = ""
+        compileFlags = "-DWITH_FR_COMMON"
+        linkerFlags = ""
+        />
+    <feature
+        id="FR_examples"
+        name="FlexRay examples"
+        description = "Examples for the FlexRay implementation"
+        initiallyEnabled = "true"
+        requires = "FR_common"
+        labels = ""
+        nedPackages = "
+                       fico4omnet.examples.flexray
+                      "
+        extraSourceFolders = ""
+        linkerFlags = ""
+        />
+</features>
