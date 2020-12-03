@@ -58,4 +58,8 @@ unsigned int CanID::getDlc() const{
     return dlc;
 }
 
+unsigned int CanID::getBitLength(){
+    return 8*dlc+63;
+}
+
 }

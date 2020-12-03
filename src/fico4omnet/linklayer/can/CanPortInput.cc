@@ -31,6 +31,8 @@
 #include "fico4omnet/linklayer/can/CanPortOutput.h"
 #include "fico4omnet/buffer/can/CanOutputBuffer.h"
 
+#include "fico4omnet/nodes/can/ErrorConfinement.h"
+
 namespace FiCo4OMNeT {
 
 Define_Module(CanPortInput);
@@ -58,6 +60,19 @@ void CanPortInput::initialize() {
 }
 
 void CanPortInput::handleMessage(cMessage *msg) {
+    //checking bus-off state
+    ErrorConfinement* ec = check_and_cast<ErrorConfinement*>(getParentModule()->getParentModule()->getSubmodule("errorConfinement"));
+    unsigned int errorState= ec->getErrorState();
+    if(errorState==2){
+        std::cout<<"Hi CPInput\n";
+        if (scheduledDataFrame != nullptr) {
+            cancelEvent(scheduledDataFrame);
+        }
+        delete (scheduledDataFrame);
+        delete msg;
+        return;
+    }
+
     if (msg->isSelfMessage()) {
         if (ErrorFrame *ef = dynamic_cast<ErrorFrame *>(msg)) {
             forwardOwnErrorFrame(ef);

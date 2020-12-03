@@ -102,6 +102,8 @@ class CanID {
          */
         unsigned int getDlc() const;
 
+        unsigned int getBitLength();
+
 	private:
 		/**
 		* @brief the can ID

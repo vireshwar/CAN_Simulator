@@ -1,0 +1,149 @@
+file 18325 1605905876                                           
+version 2
+run General-0-20201121-01:27:20-5576
+attr configname General
+attr datetime 20201121-01:27:20
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Busoff_test1
+attr processid 5576
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.bandwidth 0.1Mbps
+param **.bitStuffingPercentage 0
+param **.version "\"2.0B\""
+param Busoff_test1.Victim.sourceApp[0].idDataFrames "\"2\""
+param Busoff_test1.Victim.sourceApp[0].periodicityDataFrames "\"0.700\""
+param Busoff_test1.Victim.sourceApp[0].dataLengthDataFrames "\"1\""
+param Busoff_test1.Victim.sourceApp[0].initialDataFrameOffset "\"0.700\""
+param Busoff_test1.Adversary.sourceApp[0].idDataFrames "\"2\""
+param Busoff_test1.Adversary.sourceApp[0].periodicityDataFrames "\"0.700\""
+param Busoff_test1.Adversary.sourceApp[0].dataLengthDataFrames "\"0\""
+param Busoff_test1.Adversary.sourceApp[0].initialDataFrameOffset "\"0.700\""
+param Busoff_test1.Receiver.bufferIn[0].idIncomingFrames "\"2\""
+
+vector 0 Busoff_test1.Victim.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 1 Busoff_test1.Adversary.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 2 Busoff_test1.Receiver.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 3 Busoff_test1.Victim.bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 4 Busoff_test1.Victim.bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 5 Busoff_test1.Victim.bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 6 Busoff_test1.bus.canBusLogic arbitrationLength:vector ETV
+attr interpolationmode sample-hold
+attr source arbitrationLength
+attr title "Arbitration Length, vector"
+attr unit packets
+vector 7 Busoff_test1.Adversary.bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 8 Busoff_test1.Adversary.bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 9 Busoff_test1.Adversary.bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 10 Busoff_test1.Adversary.bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+vector 11 Busoff_test1.Receiver.canNodePort.canPortInput rxDFLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, vector"
+attr unit s
+vector 12 Busoff_test1.Receiver.canNodePort.canPortInput rxDFPayloadLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, vector"
+attr unit s
+vector 13 Busoff_test1.Receiver.bufferIn[0] rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 14 Busoff_test1.Receiver.bufferIn[0] txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+vector 15 Busoff_test1.Receiver.sinkApp[0] rxDFLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, vector"
+attr unit s
+vector 16 Busoff_test1.Receiver.sinkApp[0] rxDFPayloadLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, vector"
+attr unit s
+vector 17 Busoff_test1.Victim.bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+0	4297 242 0 678 0 12.6 19 0 0 0 0
+1	4539 242 0 679 0 12.6 19 0 0 0 0
+2	4781 9 0 0 0 0 1 0 0 0 0
+3	4790 1097 3 694 0.7 12.60068 70 10 10 700 7000
+4	5887 525 3 711 0.7 12.6029 36 0 1 18 18
+5	6412 543 3 711 0.7 12.6029 36 0 10 180 1800
+6	6955 1883 3 711 0.7 12.6029 122 0 2 120 188
+7	8838 718 4 681 0.7 12.6 52 9 9 468 4212
+8	9556 542 4 694 0.7 12.60068 36 0 1 18 18
+9	10098 542 4 694 0.7 12.60068 36 0 9 162 1458
+10	10640 326 53 682 0.70945 12.60001 18 9 9 162 1458
+11	10966 836 66 712 0.71012 12.6029 36 0.00068 0.01234 0.08332 0.0004055208
+12	11802 836 66 712 0.71012 12.6029 36 0.00068 0.01234 0.08332 0.0004055208
+13	12638 655 67 713 0.71012 12.6029 36 9 10 342 3258
+14	13293 655 67 713 0.71012 12.6029 36 9 10 342 3258
+15	13948 836 68 714 0.71012 12.6029 36 0.00068 0.01234 0.08332 0.0004055208
+16	14784 836 68 714 0.71012 12.6029 36 0.00068 0.01234 0.08332 0.0004055208
+17	15620 345 70 699 0.71159 12.60215 18 10 10 180 1800
+0	15965 110 715 855 13.3 18.2 8 0 0 0 0
+1	16075 110 716 856 13.3 18.2 8 0 0 0 0
+3	16185 49 717 731 13.3 13.30068 3 10 10 30 300
+4	16234 14 717 717 13.3 13.3 1 1 1 1 1
+5	16248 15 717 717 13.3 13.3 1 10 10 10 100
+6	16263 250 717 858 13.3 18.2 16 0 2 10 12
+7	16513 220 718 858 13.3 18.2 16 9 9 144 1296
+8	16733 236 718 858 13.3 18.2 15 0 1 8 8
+9	16969 236 718 858 13.3 18.2 15 0 9 72 648
+10	17205 152 719 859 13.30001 18.20001 8 9 9 72 648
+11	17357 175 732 852 13.30068 17.50068 7 0.00068 0.00068 0.00476 3.2368e-006
+12	17532 175 732 852 13.30068 17.50068 7 0.00068 0.00068 0.00476 3.2368e-006
+13	17707 133 733 853 13.30068 17.50068 7 9 9 63 567
+14	17840 133 733 853 13.30068 17.50068 7 9 9 63 567
+15	17973 175 734 854 13.30068 17.50068 7 0.00068 0.00068 0.00476 3.2368e-006
+16	18148 175 734 854 13.30068 17.50068 7 0.00068 0.00068 0.00476 3.2368e-006
+

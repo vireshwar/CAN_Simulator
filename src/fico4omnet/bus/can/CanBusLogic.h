@@ -273,7 +273,7 @@ private:
     /**
      * @brief Is called when the transmission of a frame is not completed.
      */
-    void sendingNotCompleted(CanID* id);
+    void sendingNotCompleted(CanID* id,unsigned int bitlength);
 
     /**
      * @brief Is called when a data frame is received.

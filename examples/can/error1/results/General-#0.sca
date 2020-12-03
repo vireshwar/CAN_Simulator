@@ -1,0 +1,610 @@
+version 2
+run General-0-20201117-18:52:00-1552
+attr configname General
+attr datetime 20201117-18:52:00
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Error1
+attr processid 1552
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.bandwidth 1Mbps
+param **.bitStuffingPercentage 0
+param **.version "\"2.0A\""
+param Error1.node[0].errorperc 0
+param Error1.node[0].sourceApp[0].idDataFrames "\"1,2,3\""
+param Error1.node[0].sourceApp[0].periodicityDataFrames "\"0.005,0.008,0.012\""
+param Error1.node[0].sourceApp[0].initialDataFrameOffset "\"0.005,0.008,0.012\""
+param Error1.node[0].sourceApp[0].dataLengthDataFrames "\"0,0,0\""
+param Error1.node[1].errorperc 50
+param Error1.node[1].bufferIn[0].idIncomingFrames "\"1,2,3\""
+
+statistic Error1.bus.canBusLogic arbitrationLength:stats
+field count 3
+field mean 0.66666666666667
+field stddev 0.57735026918963
+field min 0
+field max 1
+field sum 2
+field sqrsum 2
+attr interpolationmode sample-hold
+attr source arbitrationLength
+attr title "Arbitration Length, stats"
+attr unit packets
+scalar Error1.bus.canBusLogic utilization:last 2.2192779065916
+attr source lowHighRatio(state)*100
+attr title "Utilization, last"
+attr unit %
+scalar Error1.bus.canBusLogic framesPerSec:last 249.96875390576
+attr source sumPerDuration(constant1(rxPk))
+attr title "Frames/sec, last"
+attr unit fps
+scalar Error1.bus.canBusLogic bitsPerSec:last 11748.531433571
+attr source sumPerDuration(packetBits(rxPk))
+attr title "Bits/sec, last"
+attr unit bps
+scalar Error1.bus.canBusLogic rxEF:count 1
+attr interpolationmode none
+attr source rxEF
+attr title "error frames received, count"
+scalar Error1.bus.canBusLogic rxRF:count 0
+attr interpolationmode none
+attr source rxRF
+attr title "remote frames received, count"
+scalar Error1.bus.canBusLogic rxDF:count 2
+attr interpolationmode none
+attr source rxDF
+attr title "data frames received, count"
+statistic Error1.node[0].canNodePort.canPortInput rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Error1.node[0].canNodePort.canPortInput rxDFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+scalar Error1.node[0].canNodePort.canPortInput rxRF:count 0
+attr source rxRF
+attr title "complete remote frames received, count"
+statistic Error1.node[0].canNodePort.canPortInput rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Error1.node[0].canNodePort.canPortInput rxDF:count 0
+attr source rxDF
+attr title "complete data frames received, count"
+statistic Error1.node[0].canNodePort.canPortInput rxDFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+scalar Error1.node[0].canNodePort.canPortOutput txEF:count 0
+attr source txEF
+attr title "sent errors, count"
+scalar Error1.node[0].canNodePort.canPortOutput txRF:count 0
+attr source txRF
+attr title "sent remote frames, count"
+scalar Error1.node[0].canNodePort.canPortOutput txDF:count 2
+attr source txDF
+attr title "sent data frames, count"
+scalar Error1.node[0].canNodePort.canPortOutput rxEF:count 0
+attr source rxEF
+attr title "receive errors, count"
+scalar Error1.node[0].bufferIn[0] txPk:count 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Error1.node[0].bufferIn[0] txPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Error1.node[0].bufferIn[0] rxPk:count 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Error1.node[0].bufferIn[0] rxPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Error1.node[0].bufferIn[0] size:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Error1.node[0].bufferIn[0] length:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Error1.node[0].bufferOut txPk:count 2
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Error1.node[0].bufferOut txPk:sum(packetBytes) 12
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Error1.node[0].bufferOut rxPk:count 4
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Error1.node[0].bufferOut rxPk:sum(packetBytes) 24
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Error1.node[0].bufferOut size:stats
+field count 3
+field mean 4
+field stddev 3.4641016151378
+field min 0
+field max 6
+field sum 12
+field sqrsum 72
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Error1.node[0].bufferOut length:stats
+field count 3
+field mean 0.66666666666667
+field stddev 0.57735026918963
+field min 0
+field max 1
+field sum 2
+field sqrsum 2
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Error1.node[0].sourceApp[0] txRF:count 0
+attr source txRF
+attr title "source app remote frame, count"
+scalar Error1.node[0].sourceApp[0] txDF:count 2
+attr source txDF
+attr title "source app data frame, count"
+statistic Error1.node[0].sinkApp[0] rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Error1.node[0].sinkApp[0] rxRFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic Error1.node[0].sinkApp[0] rxDFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+statistic Error1.node[0].sinkApp[0] rxDFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar Error1.node[0].sinkApp[0] rxRF:count 0
+attr source rxRF
+attr title "sink app remote frame, count"
+statistic Error1.node[0].sinkApp[0] rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Error1.node[0].sinkApp[0] rxDF:count 0
+attr source rxDF
+attr title "sink app data frame, count"
+statistic Error1.node[0].sinkApp[0] rxDFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+statistic Error1.node[0].canClock clockDrift:stats
+field count 3
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, stats"
+attr unit s
+statistic Error1.node[1].canNodePort.canPortInput rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Error1.node[1].canNodePort.canPortInput rxDFPayloadLatency:stats
+field count 1
+field mean 4.8e-005
+field stddev nan
+field min 4.8e-005
+field max 4.8e-005
+field sum 4.8e-005
+field sqrsum 2.304e-009
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+scalar Error1.node[1].canNodePort.canPortInput rxRF:count 0
+attr source rxRF
+attr title "complete remote frames received, count"
+statistic Error1.node[1].canNodePort.canPortInput rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Error1.node[1].canNodePort.canPortInput rxDF:count 1
+attr source rxDF
+attr title "complete data frames received, count"
+statistic Error1.node[1].canNodePort.canPortInput rxDFLatency:stats
+field count 1
+field mean 4.8e-005
+field stddev nan
+field min 4.8e-005
+field max 4.8e-005
+field sum 4.8e-005
+field sqrsum 2.304e-009
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+scalar Error1.node[1].canNodePort.canPortOutput txEF:count 0
+attr source txEF
+attr title "sent errors, count"
+scalar Error1.node[1].canNodePort.canPortOutput txRF:count 0
+attr source txRF
+attr title "sent remote frames, count"
+scalar Error1.node[1].canNodePort.canPortOutput txDF:count 0
+attr source txDF
+attr title "sent data frames, count"
+scalar Error1.node[1].canNodePort.canPortOutput rxEF:count 1
+attr source rxEF
+attr title "receive errors, count"
+scalar Error1.node[1].bufferIn[0] txPk:count 1
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Error1.node[1].bufferIn[0] txPk:sum(packetBytes) 6
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Error1.node[1].bufferIn[0] rxPk:count 1
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Error1.node[1].bufferIn[0] rxPk:sum(packetBytes) 6
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Error1.node[1].bufferIn[0] size:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Error1.node[1].bufferIn[0] length:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Error1.node[1].bufferOut txPk:count 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Error1.node[1].bufferOut txPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Error1.node[1].bufferOut rxPk:count 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Error1.node[1].bufferOut rxPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Error1.node[1].bufferOut size:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Error1.node[1].bufferOut length:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Error1.node[1].sourceApp[0] txRF:count 0
+attr source txRF
+attr title "source app remote frame, count"
+scalar Error1.node[1].sourceApp[0] txDF:count 0
+attr source txDF
+attr title "source app data frame, count"
+statistic Error1.node[1].sinkApp[0] rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Error1.node[1].sinkApp[0] rxRFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic Error1.node[1].sinkApp[0] rxDFPayloadLatency:stats
+field count 1
+field mean 4.8e-005
+field stddev nan
+field min 4.8e-005
+field max 4.8e-005
+field sum 4.8e-005
+field sqrsum 2.304e-009
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+statistic Error1.node[1].sinkApp[0] rxDFPayloadLatency:histogram
+field count 1
+field mean 4.8e-005
+field stddev nan
+field min 4.8e-005
+field max 4.8e-005
+field sum 4.8e-005
+field sqrsum 2.304e-009
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	1
+bin	0.01	0
+bin	0.02	0
+bin	0.03	0
+bin	0.04	0
+bin	0.05	0
+bin	0.06	0
+bin	0.07	0
+bin	0.08	0
+bin	0.09	0
+bin	0.1	0
+bin	0.11	0
+bin	0.12	0
+bin	0.13	0
+bin	0.14	0
+bin	0.15	0
+bin	0.16	0
+bin	0.17	0
+bin	0.18	0
+bin	0.19	0
+bin	0.2	0
+bin	0.21	0
+bin	0.22	0
+bin	0.23	0
+bin	0.24	0
+bin	0.25	0
+bin	0.26	0
+bin	0.27	0
+bin	0.28	0
+bin	0.29	0
+bin	0.3	0
+bin	0.31	0
+bin	0.32	0
+bin	0.33	0
+bin	0.34	0
+bin	0.35	0
+bin	0.36	0
+bin	0.37	0
+bin	0.38	0
+bin	0.39	0
+bin	0.4	0
+bin	0.41	0
+bin	0.42	0
+bin	0.43	0
+bin	0.44	0
+bin	0.45	0
+bin	0.46	0
+bin	0.47	0
+bin	0.48	0
+bin	0.49	0
+bin	0.5	0
+bin	0.51	0
+scalar Error1.node[1].sinkApp[0] rxRF:count 0
+attr source rxRF
+attr title "sink app remote frame, count"
+statistic Error1.node[1].sinkApp[0] rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Error1.node[1].sinkApp[0] rxDF:count 1
+attr source rxDF
+attr title "sink app data frame, count"
+statistic Error1.node[1].sinkApp[0] rxDFLatency:stats
+field count 1
+field mean 4.8e-005
+field stddev nan
+field min 4.8e-005
+field max 4.8e-005
+field sum 4.8e-005
+field sqrsum 2.304e-009
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+statistic Error1.node[1].canClock clockDrift:stats
+field count 1
+field mean 0
+field stddev nan
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, stats"
+attr unit s
+

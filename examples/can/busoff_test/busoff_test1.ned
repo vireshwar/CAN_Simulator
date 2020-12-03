@@ -30,9 +30,17 @@ network Busoff_test1
             gates:
                 gate[3];
         }
-        node[3]: CanNode;
+        Victim: CanNode {
+            @display("p=352.5,19.375");
+        }
+        Adversary: CanNode {
+            @display("p=200.625,24.375");
+        }
+        Receiver: CanNode {
+            @display("p=271.875,98.125");
+        }
     connections:
-        bus.gate[0] <--> node[0].gate;
-        bus.gate[1] <--> node[1].gate;
-        bus.gate[2] <--> node[2].gate;
+        bus.gate[0] <--> Victim.gate;
+        bus.gate[1] <--> Adversary.gate;
+        bus.gate[2] <--> Receiver.gate;
 }

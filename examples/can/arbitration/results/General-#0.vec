@@ -1,0 +1,71 @@
+version 2
+run General-0-20201102-16:17:52-11698
+attr configname General
+attr datetime 20201102-16:17:52
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Canbus
+attr processid 11698
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.bandwidth 0.1Mbps
+param **.bitStuffingPercentage 0
+param **.version "\"2.0B\""
+param Canbus.node[0].sourceApp[0].idDataFrames "\"1,7,2,3,4,5,6\""
+param Canbus.node[0].sourceApp[0].periodicityDataFrames "\"0.500,0.500,0.510,0.530,0.570,0.650,0.652\""
+param Canbus.node[0].sourceApp[0].dataLengthDataFrames "\"0,0,0,0,0,0,0\""
+param Canbus.node[0].sourceApp[0].initialDataFrameOffset "\"0.500,0.500,0.510,0.530,0.570,0.650,0.652\""
+param Canbus.node[1].sourceApp[0].idDataFrames "\"10,20,30,40,50\""
+param Canbus.node[1].sourceApp[0].periodicityDataFrames "\"0.510,0.530,0.570,0.650,0.651\""
+param Canbus.node[1].sourceApp[0].dataLengthDataFrames "\"0,0,0,0,0\""
+param Canbus.node[1].sourceApp[0].initialDataFrameOffset "\"0.510,0.530,0.570,0.650,0.651\""
+param Canbus.node[2].sourceApp[0].idDataFrames "\"100,200,300,400\""
+param Canbus.node[2].sourceApp[0].periodicityDataFrames "\"0.530,0.570,0.600,0.654\""
+param Canbus.node[2].sourceApp[0].dataLengthDataFrames "\"0,0,0,0\""
+param Canbus.node[2].sourceApp[0].initialDataFrameOffset "\"0.530,0.570,0.650,0.654\""
+param Canbus.node[3].sourceApp[0].idDataFrames "\"1000,2000\""
+param Canbus.node[3].sourceApp[0].periodicityDataFrames "\"0.570,0.650\""
+param Canbus.node[3].sourceApp[0].dataLengthDataFrames "\"0,0\""
+param Canbus.node[3].sourceApp[0].initialDataFrameOffset "\"0.570,0.650\""
+param Canbus.node[4].sourceApp[0].idDataFrames "\"10000\""
+param Canbus.node[4].sourceApp[0].periodicityDataFrames "\"0.650\""
+param Canbus.node[4].sourceApp[0].dataLengthDataFrames "\"0\""
+param Canbus.node[4].sourceApp[0].initialDataFrameOffset "\"0.650\""
+
+vector 0 Canbus.node[0].canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 1 Canbus.node[1].canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 2 Canbus.node[2].canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 3 Canbus.node[3].canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 4 Canbus.node[4].canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+0	0	0	0
+1	0	0	0
+2	0	0	0
+3	0	0	0
+4	0	0	0
+

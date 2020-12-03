@@ -121,19 +121,22 @@ void CanBusLogic::grantSendingPermission() {
     currentSendingID = INT_MAX;
     sendingNode = nullptr;
     unsigned int sendByteLength = INT_MAX;
+    CanID* sendingid = nullptr;
 
+    std::cout<<ids.size()<<" Ids length\n";
     for (std::list<CanID*>::iterator it = ids.begin(); it != ids.end(); ++it) {
         CanID *id = *it;
         if (id->getCanID() < currentSendingID) {
             currentSendingID = id->getCanID();
-
             sendingNode = dynamic_cast<CanOutputBuffer*> (id->getNode());
+            sendingid = id;
             currsit = id->getSignInTime();
         }
 
         else if(id->getCanID() == currentSendingID &&(id->getDlc()<sendByteLength))
         {
             sendingNode = dynamic_cast<CanOutputBuffer*> (id->getNode());
+            sendingid = id;
             currsit = id->getSignInTime();
         }
     }
@@ -156,7 +159,46 @@ void CanBusLogic::grantSendingPermission() {
         getParentModule()->cComponent::bubble("More than one node sends with the same ID.");
         getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
         getParentModule()->getDisplayString().setTagArg("tt", 0, "WARNING: More than one node sends with the same ID.");
+
+        idle = true;
+
+        bool advFail = false;
+        for (unsigned int it = 0; it != eraseids.size(); it++) {
+            std::list<CanID*>::iterator ite = eraseids.at(it);
+            CanID *id = *ite;
+            if(sendingNode!=id->getNode() &&  id->getCanID() == currentSendingID){
+                CanOutputBuffer* controller = check_and_cast<CanOutputBuffer *>(
+                                id->getNode());
+                unsigned int es = controller->getErrorState();
+                if(es==0)
+                    advFail = true;
+            }
+        }
+
+
+        if(advFail){
+            for (unsigned int it = 0; it != eraseids.size(); it++) {
+                std::list<CanID*>::iterator ite = eraseids.at(it);
+                CanID *id = *ite;
+
+                sendingNotCompleted(id,sendingid->getBitLength());
+
+                delete *(ite);
+                ids.erase(ite);
+            }
+
+            sendingNode = nullptr;
+            eraseids.clear();
+
+//            errored = false;
+//            if (scheduledDataFrame != nullptr) {
+//                cancelEvent(scheduledDataFrame);
+//            }
+//            scheduledDataFrame = nullptr;
+        }
     }
+
+
     if (sendingNode != nullptr) {
         CanOutputBuffer* controller = check_and_cast<CanOutputBuffer *>(
                 sendingNode);
@@ -174,13 +216,23 @@ void CanBusLogic::sendingCompleted() {
     CanOutputBuffer* controller = check_and_cast<CanOutputBuffer*>(sendingNode);
     controller->sendingCompleted();
 
+    CanID *sendingid;
+    for (unsigned int it = 0; it != eraseids.size(); it++) {
+        std::list<CanID*>::iterator ite = eraseids.at(it);
+        CanID *id = *ite;
+        if(sendingNode == id->getNode())
+        {
+            sendingid = id;
+        }
+    }
+
     for (unsigned int it = 0; it != eraseids.size(); it++) {
         std::list<CanID*>::iterator ite = eraseids.at(it);
         CanID *id = *ite;
 
-        if(sendingNode != id->getNode())
+        if(sendingNode != id->getNode() || id->getCanID()!= currentSendingID)
         {
-            sendingNotCompleted(id);
+            sendingNotCompleted(id,sendingid->getBitLength());
         }
         delete *(ite);
         ids.erase(ite);
@@ -194,13 +246,12 @@ void CanBusLogic::sendingCompleted() {
     scheduledDataFrame = nullptr;
 }
 
-void CanBusLogic::sendingNotCompleted(CanID* id) {
-        cout<<"Entered snC CBL\n";
+void CanBusLogic::sendingNotCompleted(CanID* id,unsigned int bitlength) {
         CanOutputBuffer* controller = check_and_cast<CanOutputBuffer*>(id->getNode());
         if(currentSendingID == id->getCanID())
-            controller->sendingNotCompleted(id->getCanID(),1);
+            controller->sendingNotCompleted(id->getCanID(),1,bitlength);
         else
-            controller->sendingNotCompleted(id->getCanID(),0);
+            controller->sendingNotCompleted(id->getCanID(),0,bitlength);
 //        emit(arbitrationLengthSignal, static_cast<unsigned long>(ids.size()));
 }
 
@@ -267,7 +318,7 @@ void CanBusLogic::registerForArbitration(unsigned int canID, cModule *module,
     emit(arbitrationLengthSignal, static_cast<unsigned long>(ids.size()));
     if (idle) {
         cMessage *self = new cMessage("idle_signin");
-        scheduleAt(signInTime + (1 / (bandwidth)), self);
+        scheduleAt(simTime() + (1 / (bandwidth)), self);
         idle = false;
         bubble("state: busy");
         getDisplayString().setTagArg("tt", 0, "state: busy");

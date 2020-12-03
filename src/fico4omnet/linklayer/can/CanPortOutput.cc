@@ -31,6 +31,8 @@
 //Auto-generated messages
 #include "fico4omnet/linklayer/can/messages/CanDataFrame_m.h"
 
+#include "fico4omnet/nodes/can/ErrorConfinement.h"
+
 namespace FiCo4OMNeT {
 
 Define_Module(CanPortOutput);
@@ -71,6 +73,14 @@ void CanPortOutput::initializeStatisticValues(){
 }
 
 void CanPortOutput::handleMessage(cMessage *msg) {
+    ErrorConfinement* ec = check_and_cast<ErrorConfinement*>(getParentModule()->getParentModule()->getSubmodule("errorConfinement"));
+    unsigned int errorState= ec->getErrorState();
+    if(errorState==2){
+        std::cout<<"Hi CPOutput\n";
+        delete msg;
+        return;
+    }
+
     if (ErrorFrame *ef = dynamic_cast<ErrorFrame *>(msg)) {
         if (!errorReceived) {
             if (ef->getKind() < 2) { //TODO magic number
@@ -119,6 +129,10 @@ void CanPortOutput::handleMessage(cMessage *msg) {
 
 double CanPortOutput::calculateScheduleTiming(int length) {
     return static_cast<double> (length) / (bandwidth);
+}
+
+double CanPortOutput::getBandwidth(){
+    return bandwidth;
 }
 
 void CanPortOutput::sendingCompleted(){

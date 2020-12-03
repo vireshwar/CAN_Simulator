@@ -1,0 +1,112 @@
+file 4959 1604383887                                            
+version 2
+run General-0-20201027-12:33:33-1159
+attr configname General
+attr datetime 20201027-12:33:33
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network generator
+attr processid 1159
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.bandwidth 0.25Mbps
+param **.bitStuffingPercentage 0
+param **.version "\"2.0A\""
+param generator.aws.bufferIn[0].idIncomingFrames "\"15,16,17,18,19,20,50,60,70,80,90,100,500,1111,1112,1113,1114,1115,1116,1117\""
+param generator.aws.sourceApp[0].idDataFrames "\"5,6,7,8,9,10\""
+param generator.aws.sourceApp[0].periodicityDataFrames "\"0.005,0.005,0.005,0.005,0.005,0.005\""
+param generator.aws.sourceApp[0].initialDataFrameOffset "\"0.005,0.005,0.005,0.005,0.005,0.005\""
+param generator.aws.sourceApp[0].dataLengthDataFrames "\"8,8,8,8,8,8\""
+param generator.aws.sourceApp[0].idRemoteFrames "\"50,60,70,80,90,100,500\""
+param generator.aws.sourceApp[0].periodicityRemoteFrames "\"1,1,1,1,1,1,1\""
+param generator.aws.sourceApp[0].initialRemoteFrameOffset "\"1.0,1.0,1.0,1.0,1.0,1.0,1.0\""
+param generator.aws.sourceApp[0].dataLengthRemoteFrames "\"1,1,1,1,1,1,1\""
+param generator.motorx.bufferIn[0].idIncomingFrames "\"5\""
+param generator.motorx.sourceApp[0].idDataFrames "\"15,50\""
+param generator.motorx.sourceApp[0].periodicityDataFrames "\"0.050,0\""
+param generator.motorx.sourceApp[0].initialDataFrameOffset "\"0.05,0.0\""
+param generator.motorx.sourceApp[0].dataLengthDataFrames "\"8,1\""
+param generator.motory.bufferIn[0].idIncomingFrames "\"6\""
+param generator.motory.sourceApp[0].idDataFrames "\"16,60\""
+param generator.motory.sourceApp[0].periodicityDataFrames "\"0.050,0\""
+param generator.motory.sourceApp[0].initialDataFrameOffset "\"0.05,0.0\""
+param generator.motory.sourceApp[0].dataLengthDataFrames "\"8,1\""
+param generator.motorz.bufferIn[0].idIncomingFrames "\"7\""
+param generator.motorz.sourceApp[0].idDataFrames "\"17,70\""
+param generator.motorz.sourceApp[0].periodicityDataFrames "\"0.050,0\""
+param generator.motorz.sourceApp[0].initialDataFrameOffset "\"0.05,0.0\""
+param generator.motorz.sourceApp[0].dataLengthDataFrames "\"8,1\""
+param generator.motoralpha.bufferIn[0].idIncomingFrames "\"8\""
+param generator.motoralpha.sourceApp[0].idDataFrames "\"18,80\""
+param generator.motoralpha.sourceApp[0].periodicityDataFrames "\"0.050,0\""
+param generator.motoralpha.sourceApp[0].initialDataFrameOffset "\"0.05,0.0\""
+param generator.motoralpha.sourceApp[0].dataLengthDataFrames "\"8,1\""
+param generator.motorbeta.bufferIn[0].idIncomingFrames "\"9\""
+param generator.motorbeta.sourceApp[0].idDataFrames "\"19,90\""
+param generator.motorbeta.sourceApp[0].periodicityDataFrames "\"0.050,0\""
+param generator.motorbeta.sourceApp[0].initialDataFrameOffset "\"0.05,0.0\""
+param generator.motorbeta.sourceApp[0].dataLengthDataFrames "\"8,1\""
+param generator.motorgamma.bufferIn[0].idIncomingFrames "\"10\""
+param generator.motorgamma.sourceApp[0].idDataFrames "\"20,100\""
+param generator.motorgamma.sourceApp[0].periodicityDataFrames "\"0.050,0\""
+param generator.motorgamma.sourceApp[0].initialDataFrameOffset "\"0.05,0.0\""
+param generator.motorgamma.sourceApp[0].dataLengthDataFrames "\"8,1\""
+param generator.generator.sourceApp[0].idDataFrames "\"500,1111,1112,1113,1114,1115,1116,1117\""
+param generator.generator.sourceApp[0].periodicityDataFrames "\"0,1,1,1,1,1,1,1\""
+param generator.generator.sourceApp[0].initialDataFrameOffset "\"0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0\""
+param generator.generator.sourceApp[0].dataLengthDataFrames "\"1,8,8,8,8,8,8,8\""
+
+vector 0 generator.aws.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+0	4894 8 0 0 0 0 1 0 0 0 0
+vector 1 generator.motorx.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+1	4902 8 0 0 0 0 1 0 0 0 0
+vector 2 generator.motory.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+2	4910 8 0 0 0 0 1 0 0 0 0
+vector 3 generator.motorz.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+3	4918 8 0 0 0 0 1 0 0 0 0
+vector 4 generator.motoralpha.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+4	4926 8 0 0 0 0 1 0 0 0 0
+vector 5 generator.motorbeta.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+5	4934 8 0 0 0 0 1 0 0 0 0
+vector 6 generator.motorgamma.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+6	4942 8 0 0 0 0 1 0 0 0 0
+vector 7 generator.generator.canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+7	4950 9 0 0 0 0 1 0 0 0 0

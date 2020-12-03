@@ -1,0 +1,886 @@
+version 2
+run General-0-20201121-01:27:20-5576
+attr configname General
+attr datetime 20201121-01:27:20
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Busoff_test1
+attr processid 5576
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.bandwidth 0.1Mbps
+param **.bitStuffingPercentage 0
+param **.version "\"2.0B\""
+param Busoff_test1.Victim.sourceApp[0].idDataFrames "\"2\""
+param Busoff_test1.Victim.sourceApp[0].periodicityDataFrames "\"0.700\""
+param Busoff_test1.Victim.sourceApp[0].dataLengthDataFrames "\"1\""
+param Busoff_test1.Victim.sourceApp[0].initialDataFrameOffset "\"0.700\""
+param Busoff_test1.Adversary.sourceApp[0].idDataFrames "\"2\""
+param Busoff_test1.Adversary.sourceApp[0].periodicityDataFrames "\"0.700\""
+param Busoff_test1.Adversary.sourceApp[0].dataLengthDataFrames "\"0\""
+param Busoff_test1.Adversary.sourceApp[0].initialDataFrameOffset "\"0.700\""
+param Busoff_test1.Receiver.bufferIn[0].idIncomingFrames "\"2\""
+
+statistic Busoff_test1.bus.canBusLogic arbitrationLength:stats
+field count 138
+field mean 0.94202898550725
+field stddev 0.75230173266046
+field min 0
+field max 2
+field sum 130
+field sqrsum 200
+attr interpolationmode sample-hold
+attr source arbitrationLength
+attr title "Arbitration Length, stats"
+attr unit packets
+scalar Busoff_test1.bus.canBusLogic utilization:last 0.22925714285714
+attr source lowHighRatio(state)*100
+attr title "Utilization, last"
+attr unit %
+scalar Busoff_test1.bus.canBusLogic framesPerSec:last 2.457141453062
+attr source sumPerDuration(constant1(rxPk))
+attr title "Frames/sec, last"
+attr unit fps
+scalar Busoff_test1.bus.canBusLogic bitsPerSec:last 172.85704408169
+attr source sumPerDuration(packetBits(rxPk))
+attr title "Bits/sec, last"
+attr unit bps
+scalar Busoff_test1.bus.canBusLogic rxEF:count 0
+attr interpolationmode none
+attr source rxEF
+attr title "error frames received, count"
+scalar Busoff_test1.bus.canBusLogic rxRF:count 0
+attr interpolationmode none
+attr source rxRF
+attr title "remote frames received, count"
+scalar Busoff_test1.bus.canBusLogic rxDF:count 43
+attr interpolationmode none
+attr source rxDF
+attr title "data frames received, count"
+statistic Busoff_test1.Victim.canNodePort.canPortInput rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Busoff_test1.Victim.canNodePort.canPortInput rxDFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+scalar Busoff_test1.Victim.canNodePort.canPortInput rxRF:count 0
+attr source rxRF
+attr title "complete remote frames received, count"
+statistic Busoff_test1.Victim.canNodePort.canPortInput rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Busoff_test1.Victim.canNodePort.canPortInput rxDF:count 0
+attr source rxDF
+attr title "complete data frames received, count"
+statistic Busoff_test1.Victim.canNodePort.canPortInput rxDFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+scalar Busoff_test1.Victim.canNodePort.canPortOutput txEF:count 0
+attr source txEF
+attr title "sent errors, count"
+scalar Busoff_test1.Victim.canNodePort.canPortOutput txRF:count 0
+attr source txRF
+attr title "sent remote frames, count"
+scalar Busoff_test1.Victim.canNodePort.canPortOutput txDF:count 18
+attr source txDF
+attr title "sent data frames, count"
+scalar Busoff_test1.Victim.canNodePort.canPortOutput rxEF:count 0
+attr source rxEF
+attr title "receive errors, count"
+scalar Busoff_test1.Victim.bufferIn[0] txPk:count 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Busoff_test1.Victim.bufferIn[0] txPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Busoff_test1.Victim.bufferIn[0] rxPk:count 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Busoff_test1.Victim.bufferIn[0] rxPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Busoff_test1.Victim.bufferIn[0] size:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Busoff_test1.Victim.bufferIn[0] length:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Busoff_test1.Victim.bufferOut txPk:count 18
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Busoff_test1.Victim.bufferOut txPk:sum(packetBytes) 180
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Busoff_test1.Victim.bufferOut rxPk:count 73
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Busoff_test1.Victim.bufferOut rxPk:sum(packetBytes) 730
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Busoff_test1.Victim.bufferOut size:stats
+field count 37
+field mean 5.1351351351351
+field stddev 5.0671170970953
+field min 0
+field max 10
+field sum 190
+field sqrsum 1900
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Busoff_test1.Victim.bufferOut length:stats
+field count 37
+field mean 0.51351351351351
+field stddev 0.50671170970953
+field min 0
+field max 1
+field sum 19
+field sqrsum 19
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Busoff_test1.Victim.sourceApp[0] txRF:count 0
+attr source txRF
+attr title "source app remote frame, count"
+scalar Busoff_test1.Victim.sourceApp[0] txDF:count 26
+attr source txDF
+attr title "source app data frame, count"
+statistic Busoff_test1.Victim.sinkApp[0] rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Busoff_test1.Victim.sinkApp[0] rxRFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic Busoff_test1.Victim.sinkApp[0] rxDFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+statistic Busoff_test1.Victim.sinkApp[0] rxDFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar Busoff_test1.Victim.sinkApp[0] rxRF:count 0
+attr source rxRF
+attr title "sink app remote frame, count"
+statistic Busoff_test1.Victim.sinkApp[0] rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Busoff_test1.Victim.sinkApp[0] rxDF:count 0
+attr source rxDF
+attr title "sink app data frame, count"
+statistic Busoff_test1.Victim.sinkApp[0] rxDFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+statistic Busoff_test1.Victim.canClock clockDrift:stats
+field count 27
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, stats"
+attr unit s
+statistic Busoff_test1.Adversary.canNodePort.canPortInput rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Busoff_test1.Adversary.canNodePort.canPortInput rxDFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+scalar Busoff_test1.Adversary.canNodePort.canPortInput rxRF:count 0
+attr source rxRF
+attr title "complete remote frames received, count"
+statistic Busoff_test1.Adversary.canNodePort.canPortInput rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Busoff_test1.Adversary.canNodePort.canPortInput rxDF:count 0
+attr source rxDF
+attr title "complete data frames received, count"
+statistic Busoff_test1.Adversary.canNodePort.canPortInput rxDFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+scalar Busoff_test1.Adversary.canNodePort.canPortOutput txEF:count 0
+attr source txEF
+attr title "sent errors, count"
+scalar Busoff_test1.Adversary.canNodePort.canPortOutput txRF:count 0
+attr source txRF
+attr title "sent remote frames, count"
+scalar Busoff_test1.Adversary.canNodePort.canPortOutput txDF:count 26
+attr source txDF
+attr title "sent data frames, count"
+scalar Busoff_test1.Adversary.canNodePort.canPortOutput rxEF:count 0
+attr source rxEF
+attr title "receive errors, count"
+scalar Busoff_test1.Adversary.bufferIn[0] txPk:count 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Busoff_test1.Adversary.bufferIn[0] txPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Busoff_test1.Adversary.bufferIn[0] rxPk:count 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Busoff_test1.Adversary.bufferIn[0] rxPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Busoff_test1.Adversary.bufferIn[0] size:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Busoff_test1.Adversary.bufferIn[0] length:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Busoff_test1.Adversary.bufferOut txPk:count 26
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Busoff_test1.Adversary.bufferOut txPk:sum(packetBytes) 234
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Busoff_test1.Adversary.bufferOut rxPk:count 68
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Busoff_test1.Adversary.bufferOut rxPk:sum(packetBytes) 612
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Busoff_test1.Adversary.bufferOut size:stats
+field count 51
+field mean 4.5882352941176
+field stddev 4.5439034786766
+field min 0
+field max 9
+field sum 234
+field sqrsum 2106
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Busoff_test1.Adversary.bufferOut length:stats
+field count 51
+field mean 0.50980392156863
+field stddev 0.5048781642974
+field min 0
+field max 1
+field sum 26
+field sqrsum 26
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Busoff_test1.Adversary.sourceApp[0] txRF:count 0
+attr source txRF
+attr title "source app remote frame, count"
+scalar Busoff_test1.Adversary.sourceApp[0] txDF:count 26
+attr source txDF
+attr title "source app data frame, count"
+statistic Busoff_test1.Adversary.sinkApp[0] rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Busoff_test1.Adversary.sinkApp[0] rxRFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic Busoff_test1.Adversary.sinkApp[0] rxDFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+statistic Busoff_test1.Adversary.sinkApp[0] rxDFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar Busoff_test1.Adversary.sinkApp[0] rxRF:count 0
+attr source rxRF
+attr title "sink app remote frame, count"
+statistic Busoff_test1.Adversary.sinkApp[0] rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Busoff_test1.Adversary.sinkApp[0] rxDF:count 0
+attr source rxDF
+attr title "sink app data frame, count"
+statistic Busoff_test1.Adversary.sinkApp[0] rxDFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+statistic Busoff_test1.Adversary.canClock clockDrift:stats
+field count 27
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, stats"
+attr unit s
+statistic Busoff_test1.Receiver.canNodePort.canPortInput rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Busoff_test1.Receiver.canNodePort.canPortInput rxDFPayloadLatency:stats
+field count 43
+field mean 0.0020483720930233
+field stddev 0.0023316506826429
+field min 0.00068
+field max 0.01234
+field sum 0.08808
+field sqrsum 0.0004087576
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+scalar Busoff_test1.Receiver.canNodePort.canPortInput rxRF:count 0
+attr source rxRF
+attr title "complete remote frames received, count"
+statistic Busoff_test1.Receiver.canNodePort.canPortInput rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Busoff_test1.Receiver.canNodePort.canPortInput rxDF:count 43
+attr source rxDF
+attr title "complete data frames received, count"
+statistic Busoff_test1.Receiver.canNodePort.canPortInput rxDFLatency:stats
+field count 43
+field mean 0.0020483720930233
+field stddev 0.0023316506826429
+field min 0.00068
+field max 0.01234
+field sum 0.08808
+field sqrsum 0.0004087576
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+scalar Busoff_test1.Receiver.canNodePort.canPortOutput txEF:count 0
+attr source txEF
+attr title "sent errors, count"
+scalar Busoff_test1.Receiver.canNodePort.canPortOutput txRF:count 0
+attr source txRF
+attr title "sent remote frames, count"
+scalar Busoff_test1.Receiver.canNodePort.canPortOutput txDF:count 0
+attr source txDF
+attr title "sent data frames, count"
+scalar Busoff_test1.Receiver.canNodePort.canPortOutput rxEF:count 0
+attr source rxEF
+attr title "receive errors, count"
+scalar Busoff_test1.Receiver.bufferIn[0] txPk:count 43
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Busoff_test1.Receiver.bufferIn[0] txPk:sum(packetBytes) 405
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Busoff_test1.Receiver.bufferIn[0] rxPk:count 43
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Busoff_test1.Receiver.bufferIn[0] rxPk:sum(packetBytes) 405
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Busoff_test1.Receiver.bufferIn[0] size:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Busoff_test1.Receiver.bufferIn[0] length:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Busoff_test1.Receiver.bufferOut txPk:count 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, count"
+scalar Busoff_test1.Receiver.bufferOut txPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, sum(packetBytes)"
+scalar Busoff_test1.Receiver.bufferOut rxPk:count 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, count"
+scalar Busoff_test1.Receiver.bufferOut rxPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, sum(packetBytes)"
+statistic Busoff_test1.Receiver.bufferOut size:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, stats"
+attr unit B
+statistic Busoff_test1.Receiver.bufferOut length:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, stats"
+attr unit packets
+scalar Busoff_test1.Receiver.sourceApp[0] txRF:count 0
+attr source txRF
+attr title "source app remote frame, count"
+scalar Busoff_test1.Receiver.sourceApp[0] txDF:count 0
+attr source txDF
+attr title "source app data frame, count"
+statistic Busoff_test1.Receiver.sinkApp[0] rxRFPayloadLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, stats"
+attr unit s
+statistic Busoff_test1.Receiver.sinkApp[0] rxRFPayloadLatency:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRFPayload)
+attr title "End-to-end latency of remote frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic Busoff_test1.Receiver.sinkApp[0] rxDFPayloadLatency:stats
+field count 43
+field mean 0.0020483720930233
+field stddev 0.0023316506826429
+field min 0.00068
+field max 0.01234
+field sum 0.08808
+field sqrsum 0.0004087576
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, stats"
+attr unit s
+statistic Busoff_test1.Receiver.sinkApp[0] rxDFPayloadLatency:histogram
+field count 43
+field mean 0.0020483720930233
+field stddev 0.0023316506826429
+field min 0.00068
+field max 0.01234
+field sum 0.08808
+field sqrsum 0.0004087576
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	0.0002	0
+bin	0.0004	0
+bin	0.0006	24
+bin	0.0008	0
+bin	0.001	0
+bin	0.0012	0
+bin	0.0014	0
+bin	0.0016	0
+bin	0.0018	0
+bin	0.002	0
+bin	0.0022	0
+bin	0.0024	0
+bin	0.0026	0
+bin	0.0028	17
+bin	0.003	0
+bin	0.0032	0
+bin	0.0034	0
+bin	0.0036	0
+bin	0.0038	0
+bin	0.004	0
+bin	0.0042	0
+bin	0.0044	0
+bin	0.0046	0
+bin	0.0048	0
+bin	0.005	0
+bin	0.0052	0
+bin	0.0054	0
+bin	0.0056	0
+bin	0.0058	0
+bin	0.006	0
+bin	0.0062	0
+bin	0.0064	0
+bin	0.0066	0
+bin	0.0068	0
+bin	0.007	0
+bin	0.0072	0
+bin	0.0074	0
+bin	0.0076	0
+bin	0.0078	0
+bin	0.008	0
+bin	0.0082	0
+bin	0.0084	0
+bin	0.0086	0
+bin	0.0088	0
+bin	0.009	0
+bin	0.0092	0
+bin	0.0094	0
+bin	0.0096	0
+bin	0.0098	0
+bin	0.01	1
+bin	0.0102	0
+bin	0.0104	0
+bin	0.0106	0
+bin	0.0108	0
+bin	0.011	0
+bin	0.0112	0
+bin	0.0114	0
+bin	0.0116	0
+bin	0.0118	0
+bin	0.012	0
+bin	0.0122	1
+bin	0.0124	0
+bin	0.0126	0
+bin	0.0128	0
+bin	0.013	0
+bin	0.0132	0
+bin	0.0134	0
+bin	0.0136	0
+bin	0.0138	0
+bin	0.014	0
+bin	0.0142	0
+bin	0.0144	0
+bin	0.0146	0
+bin	0.0148	0
+bin	0.015	0
+bin	0.0152	0
+bin	0.0154	0
+scalar Busoff_test1.Receiver.sinkApp[0] rxRF:count 0
+attr source rxRF
+attr title "sink app remote frame, count"
+statistic Busoff_test1.Receiver.sinkApp[0] rxRFLatency:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source timestampAge(rxRF)
+attr title "End-to-end latency of remote frames, stats"
+attr unit s
+scalar Busoff_test1.Receiver.sinkApp[0] rxDF:count 43
+attr source rxDF
+attr title "sink app data frame, count"
+statistic Busoff_test1.Receiver.sinkApp[0] rxDFLatency:stats
+field count 43
+field mean 0.0020483720930233
+field stddev 0.0023316506826429
+field min 0.00068
+field max 0.01234
+field sum 0.08808
+field sqrsum 0.0004087576
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, stats"
+attr unit s
+statistic Busoff_test1.Receiver.canClock clockDrift:stats
+field count 1
+field mean 0
+field stddev nan
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, stats"
+attr unit s
+

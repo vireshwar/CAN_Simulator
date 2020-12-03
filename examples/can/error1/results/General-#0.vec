@@ -1,0 +1,114 @@
+version 2
+run General-0-20201117-18:52:00-1552
+attr configname General
+attr datetime 20201117-18:52:00
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Error1
+attr processid 1552
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.bandwidth 1Mbps
+param **.bitStuffingPercentage 0
+param **.version "\"2.0A\""
+param Error1.node[0].errorperc 0
+param Error1.node[0].sourceApp[0].idDataFrames "\"1,2,3\""
+param Error1.node[0].sourceApp[0].periodicityDataFrames "\"0.005,0.008,0.012\""
+param Error1.node[0].sourceApp[0].initialDataFrameOffset "\"0.005,0.008,0.012\""
+param Error1.node[0].sourceApp[0].dataLengthDataFrames "\"0,0,0\""
+param Error1.node[1].errorperc 50
+param Error1.node[1].bufferIn[0].idIncomingFrames "\"1,2,3\""
+
+vector 0 Error1.node[0].canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 1 Error1.node[1].canClock clockDrift:vector ETV
+attr interpolationmode linear
+attr source clockDrift
+attr title "clockDrift, vector"
+attr unit s
+vector 2 Error1.node[0].bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 3 Error1.node[0].bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 4 Error1.node[0].bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 5 Error1.bus.canBusLogic arbitrationLength:vector ETV
+attr interpolationmode sample-hold
+attr source arbitrationLength
+attr title "Arbitration Length, vector"
+attr unit packets
+vector 6 Error1.node[0].bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+vector 7 Error1.node[1].canNodePort.canPortInput rxDFLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, vector"
+attr unit s
+vector 8 Error1.node[1].canNodePort.canPortInput rxDFPayloadLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, vector"
+attr unit s
+vector 9 Error1.node[1].bufferIn[0] rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 10 Error1.node[1].bufferIn[0] txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+vector 11 Error1.node[1].sinkApp[0] rxDFLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDF)
+attr title "End-to-end latency of data frames, vector"
+attr unit s
+vector 12 Error1.node[1].sinkApp[0] rxDFPayloadLatency:vector ETV
+attr interpolationmode linear
+attr source timestampAge(rxDFPayload)
+attr title "End-to-end latency of data frame payload, vector"
+attr unit s
+0	0	0	0
+0	1	0.005	0
+0	17	0.008	0
+1	0	0	0
+2	2	0.005	6
+2	2	0.005	6
+2	18	0.008	6
+2	18	0.008	6
+3	2	0.005	1
+3	13	0.005048	0
+3	18	0.008	1
+4	2	0.005	6
+4	13	0.005048	0
+4	18	0.008	6
+5	2	0.005	1
+5	13	0.005048	0
+5	18	0.008	1
+6	3	0.005001	6
+6	19	0.008001	6
+7	14	0.005048	4.8e-005
+8	14	0.005048	4.8e-005
+9	15	0.005048	6
+10	15	0.005048	6
+11	16	0.005048	4.8e-005
+12	16	0.005048	4.8e-005
+

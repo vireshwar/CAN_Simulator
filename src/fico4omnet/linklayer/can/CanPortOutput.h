@@ -69,6 +69,11 @@ public:
      */
     virtual void sendingCompleted();
 
+    /**
+     * @returns bandwidth
+     */
+    double getBandwidth();
+
 protected:
     /**
      * @brief Initialization of the module.

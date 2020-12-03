@@ -66,7 +66,10 @@ public:
     /**
      * @brief Is called when the frame transmission is not completed.
      */
-    void sendingNotCompleted(unsigned int canID,bool error);
+    void sendingNotCompleted(unsigned int canID,bool error,unsigned int bitlength);
+
+
+    unsigned int getErrorState();
 
 
     /**
@@ -86,7 +89,7 @@ protected:
      */
     virtual void registerForArbitration(unsigned int canID, bool rtr);
 
-    virtual void registerForArbitration(unsigned int canID, bool rtr, unsigned int bytelength,unsigned int IFS);
+    virtual void registerForArbitration(unsigned int canID, bool rtr, unsigned int bytelength);
 
     /**
      * @brief Unregister from arbitration at the bus.
@@ -94,6 +97,20 @@ protected:
      * @param canID The can ID of the frame
      */
     virtual void checkoutFromArbitration(unsigned int canID);
+
+    /**
+     * @brief Overriding method of Buffer
+     *
+     * @param msg
+     */
+    virtual void handleMessage(cMessage *msg);
+
+private:
+    /**
+    * @brief Currently scheduled Data Frame
+    */
+    CanDataFrame *retransmitDataFrame;
+
 };
 
 }
