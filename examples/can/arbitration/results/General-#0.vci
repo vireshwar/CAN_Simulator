@@ -1,15 +1,15 @@
-file 2764 1604383887                                            
+file 9994 1608100719                                            
 version 2
-run General-0-20201102-16:17:52-11698
+run General-0-20201216-12:03:20-5964
 attr configname General
-attr datetime 20201102-16:17:52
+attr datetime 20201216-12:03:20
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network Canbus
-attr processid 11698
+attr processid 5964
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -44,28 +44,168 @@ attr interpolationmode linear
 attr source clockDrift
 attr title "clockDrift, vector"
 attr unit s
-0	2723 8 0 0 0 0 1 0 0 0 0
 vector 1 Canbus.node[1].canClock clockDrift:vector ETV
 attr interpolationmode linear
 attr source clockDrift
 attr title "clockDrift, vector"
 attr unit s
-1	2731 8 0 0 0 0 1 0 0 0 0
 vector 2 Canbus.node[2].canClock clockDrift:vector ETV
 attr interpolationmode linear
 attr source clockDrift
 attr title "clockDrift, vector"
 attr unit s
-2	2739 8 0 0 0 0 1 0 0 0 0
 vector 3 Canbus.node[3].canClock clockDrift:vector ETV
 attr interpolationmode linear
 attr source clockDrift
 attr title "clockDrift, vector"
 attr unit s
-3	2747 8 0 0 0 0 1 0 0 0 0
 vector 4 Canbus.node[4].canClock clockDrift:vector ETV
 attr interpolationmode linear
 attr source clockDrift
 attr title "clockDrift, vector"
 attr unit s
-4	2755 9 0 0 0 0 1 0 0 0 0
+0	2786 20 0 1 0 0.5 2 0 0 0 0
+1	2806 9 0 0 0 0 1 0 0 0 0
+2	2815 9 0 0 0 0 1 0 0 0 0
+3	2824 9 0 0 0 0 1 0 0 0 0
+4	2833 9 0 0 0 0 1 0 0 0 0
+0	2842 11 2 2 0.5 0.5 1 0 0 0 0
+vector 5 Canbus.node[0].bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 6 Canbus.node[0].bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 7 Canbus.node[0].bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 8 Canbus.bus.canBusLogic arbitrationLength:vector ETV
+attr interpolationmode sample-hold
+attr source arbitrationLength
+attr title "Arbitration Length, vector"
+attr unit packets
+5	3513 22 3 3 0.5 0.5 2 9 9 18 162
+6	3535 11 3 3 0.5 0.5 1 1 1 1 1
+7	3546 11 3 3 0.5 0.5 1 9 9 9 81
+8	3557 11 3 3 0.5 0.5 1 1 1 1 1
+5	3568 22 4 4 0.5 0.5 2 9 9 18 162
+6	3590 11 4 4 0.5 0.5 1 2 2 2 4
+7	3601 12 4 4 0.5 0.5 1 18 18 18 324
+8	3613 11 4 4 0.5 0.5 1 2 2 2 4
+vector 9 Canbus.node[0].bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+9	3781 15 5 5 0.50001 0.50001 1 9 9 9 81
+5	3796 16 10 10 0.50068 0.50068 1 9 9 9 81
+6	3812 16 10 10 0.50068 0.50068 1 1 1 1 1
+7	3828 16 10 10 0.50068 0.50068 1 9 9 9 81
+8	3844 32 10 10 0.50068 0.50068 2 1 2 3 5
+9	3876 16 10 10 0.50068 0.50068 1 9 9 9 81
+6	3892 16 26 26 0.50135 0.50135 1 0 0 0 0
+7	3908 16 26 26 0.50135 0.50135 1 0 0 0 0
+8	3924 16 26 26 0.50135 0.50135 1 0 0 0 0
+vector 10 Canbus.node[1].bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 11 Canbus.node[1].bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 12 Canbus.node[1].bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 13 Canbus.node[1].bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+vector 14 Canbus.node[2].bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 15 Canbus.node[2].bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 16 Canbus.node[2].bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 17 Canbus.node[2].bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+vector 18 Canbus.node[3].bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 19 Canbus.node[3].bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 20 Canbus.node[3].bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 21 Canbus.node[3].bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+vector 22 Canbus.node[4].bufferOut rxPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPk
+attr title "RX Packets, vector(packetBytes)"
+vector 23 Canbus.node[4].bufferOut length:vector ETV
+attr interpolationmode sample-hold
+attr source length
+attr title "Queue Length, vector"
+attr unit packets
+vector 24 Canbus.node[4].bufferOut size:vector ETV
+attr interpolationmode sample-hold
+attr source size
+attr title "Queue Size, vector"
+attr unit B
+vector 25 Canbus.node[4].bufferOut txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source txPk
+attr title "TX Packets, vector(packetBytes)"
+0	6468 69 38 252 0.51 0.652 5 0 0 0 0
+1	6537 69 39 234 0.51 0.651 5 0 0 0 0
+2	6606 56 77 302 0.53 0.654 4 0 0 0 0
+3	6662 28 133 206 0.57 0.65 2 0 0 0 0
+4	6690 14 207 207 0.65 0.65 1 0 0 0 0
+5	6704 138 40 253 0.51 0.652 10 9 9 90 810
+6	6842 152 40 270 0.51 0.65269 10 0 1 5 5
+7	6994 152 40 270 0.51 0.65269 10 0 9 45 405
+8	7146 959 40 320 0.51 0.6547 60 0 5 180 674
+9	8105 83 42 254 0.51001 0.65202 5 9 9 45 405
+10	8188 218 41 235 0.51 0.651 14 9 9 126 1134
+11	8406 163 41 254 0.51 0.65202 10 0 2 7 9
+12	8569 164 41 254 0.51 0.65202 10 0 18 63 729
+13	8733 88 47 236 0.51068 0.65135 5 9 9 45 405
+14	8821 263 80 303 0.53 0.654 16 9 9 144 1296
+15	9084 131 80 320 0.53 0.6547 8 0 1 4 4
+16	9215 131 80 320 0.53 0.6547 8 0 9 36 324
+17	9346 72 102 304 0.53135 0.65403 4 9 9 36 324
+18	9418 204 137 286 0.57 0.65336 12 9 9 108 972
+19	9622 66 137 304 0.57 0.65403 4 0 1 2 2
+20	9688 66 137 304 0.57 0.65403 4 0 9 18 162
+21	9754 36 175 286 0.57202 0.65336 2 9 9 18 162
+22	9790 155 212 320 0.65 0.6547 9 9 9 81 729
+23	9945 15 212 212 0.65 0.65 1 1 1 1 1
+24	9960 15 212 212 0.65 0.65 1 9 9 9 81
+25	9975 17 320 320 0.6547 0.6547 1 9 9 9 81
+

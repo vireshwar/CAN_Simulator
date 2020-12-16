@@ -56,6 +56,7 @@ OBJS = \
     $O/fico4omnet/utilities/HelperFunctions.o \
     $O/fico4omnet/utilities/ResultFilters.o \
     $O/fico4omnet/linklayer/can/messages/CanDataFrame_m.o \
+    $O/fico4omnet/linklayer/can/messages/ErrorFlag_m.o \
     $O/fico4omnet/linklayer/can/messages/ErrorFrame_m.o \
     $O/fico4omnet/linklayer/flexray/messages/FRFrame_m.o \
     $O/fico4omnet/scheduler/flexray/SchedulerMessage_m.o \
@@ -64,6 +65,7 @@ OBJS = \
 # Message files
 MSGFILES = \
     fico4omnet/linklayer/can/messages/CanDataFrame.msg \
+    fico4omnet/linklayer/can/messages/ErrorFlag.msg \
     fico4omnet/linklayer/can/messages/ErrorFrame.msg \
     fico4omnet/linklayer/flexray/messages/FRFrame.msg \
     fico4omnet/scheduler/flexray/SchedulerMessage.msg \

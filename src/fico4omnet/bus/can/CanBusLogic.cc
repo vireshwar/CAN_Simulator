@@ -91,6 +91,10 @@ int CanBusLogic::getSendingNodeID() {
 void CanBusLogic::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
         if (dynamic_cast<CanDataFrame *>(msg)) {
+            CanDataFrame *df = check_and_cast<CanDataFrame *>(msg);
+            send(msg->dup(), "gate$o");
+            numFramesSent++;
+            numBitsSent += static_cast<unsigned long> (df->getBitLength());
             sendingCompleted();
         } else if (dynamic_cast<ErrorFrame *>(msg)) {
             colorIdle();
@@ -275,9 +279,9 @@ void CanBusLogic::handleDataFrame(cMessage *msg) {
         emit(rcvdDFSignal, df);
         numDataFrames++;
     }
-    send(msg->dup(), "gate$o");
-    numFramesSent++;
-    numBitsSent += static_cast<unsigned long> (df->getBitLength());
+//    send(msg->dup(), "gate$o");
+//    numFramesSent++;
+//    numBitsSent += static_cast<unsigned long> (df->getBitLength());
 }
 
 void CanBusLogic::handleErrorFrame(cMessage *msg) {

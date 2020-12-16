@@ -1,14 +1,14 @@
 version 2
-run General-0-20201121-01:27:20-5576
+run General-0-20201216-12:32:30-6392
 attr configname General
-attr datetime 20201121-01:27:20
+attr datetime 20201216-12:32:30
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network Busoff_test1
-attr processid 5576
+attr processid 6392
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -28,26 +28,26 @@ param Busoff_test1.Adversary.sourceApp[0].initialDataFrameOffset "\"0.700\""
 param Busoff_test1.Receiver.bufferIn[0].idIncomingFrames "\"2\""
 
 statistic Busoff_test1.bus.canBusLogic arbitrationLength:stats
-field count 138
-field mean 0.94202898550725
-field stddev 0.75230173266046
+field count 136
+field mean 0.94852941176471
+field stddev 0.75345970366999
 field min 0
 field max 2
-field sum 130
-field sqrsum 200
+field sum 129
+field sqrsum 199
 attr interpolationmode sample-hold
 attr source arbitrationLength
 attr title "Arbitration Length, stats"
 attr unit packets
-scalar Busoff_test1.bus.canBusLogic utilization:last 0.22925714285714
+scalar Busoff_test1.bus.canBusLogic utilization:last 0.2347619047619
 attr source lowHighRatio(state)*100
 attr title "Utilization, last"
 attr unit %
-scalar Busoff_test1.bus.canBusLogic framesPerSec:last 2.457141453062
+scalar Busoff_test1.bus.canBusLogic framesPerSec:last 2.4999985119056
 attr source sumPerDuration(constant1(rxPk))
 attr title "Frames/sec, last"
 attr unit fps
-scalar Busoff_test1.bus.canBusLogic bitsPerSec:last 172.85704408169
+scalar Busoff_test1.bus.canBusLogic bitsPerSec:last 176.07132376707
 attr source sumPerDuration(packetBits(rxPk))
 attr title "Bits/sec, last"
 attr unit bps
@@ -59,7 +59,7 @@ scalar Busoff_test1.bus.canBusLogic rxRF:count 0
 attr interpolationmode none
 attr source rxRF
 attr title "remote frames received, count"
-scalar Busoff_test1.bus.canBusLogic rxDF:count 43
+scalar Busoff_test1.bus.canBusLogic rxDF:count 42
 attr interpolationmode none
 attr source rxDF
 attr title "data frames received, count"
@@ -212,7 +212,7 @@ attr unit packets
 scalar Busoff_test1.Victim.sourceApp[0] txRF:count 0
 attr source txRF
 attr title "source app remote frame, count"
-scalar Busoff_test1.Victim.sourceApp[0] txDF:count 26
+scalar Busoff_test1.Victim.sourceApp[0] txDF:count 25
 attr source txDF
 attr title "source app data frame, count"
 statistic Busoff_test1.Victim.sinkApp[0] rxRFPayloadLatency:stats
@@ -300,7 +300,7 @@ attr source timestampAge(rxDF)
 attr title "End-to-end latency of data frames, stats"
 attr unit s
 statistic Busoff_test1.Victim.canClock clockDrift:stats
-field count 27
+field count 26
 field mean 0
 field stddev 0
 field min 0
@@ -371,7 +371,7 @@ attr title "sent errors, count"
 scalar Busoff_test1.Adversary.canNodePort.canPortOutput txRF:count 0
 attr source txRF
 attr title "sent remote frames, count"
-scalar Busoff_test1.Adversary.canNodePort.canPortOutput txDF:count 26
+scalar Busoff_test1.Adversary.canNodePort.canPortOutput txDF:count 25
 attr source txDF
 attr title "sent data frames, count"
 scalar Busoff_test1.Adversary.canNodePort.canPortOutput rxEF:count 0
@@ -417,42 +417,42 @@ attr interpolationmode sample-hold
 attr source length
 attr title "Queue Length, stats"
 attr unit packets
-scalar Busoff_test1.Adversary.bufferOut txPk:count 26
+scalar Busoff_test1.Adversary.bufferOut txPk:count 25
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, count"
-scalar Busoff_test1.Adversary.bufferOut txPk:sum(packetBytes) 234
+scalar Busoff_test1.Adversary.bufferOut txPk:sum(packetBytes) 225
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, sum(packetBytes)"
-scalar Busoff_test1.Adversary.bufferOut rxPk:count 68
+scalar Busoff_test1.Adversary.bufferOut rxPk:count 66
 attr interpolationmode none
 attr source rxPk
 attr title "RX Packets, count"
-scalar Busoff_test1.Adversary.bufferOut rxPk:sum(packetBytes) 612
+scalar Busoff_test1.Adversary.bufferOut rxPk:sum(packetBytes) 594
 attr interpolationmode none
 attr source rxPk
 attr title "RX Packets, sum(packetBytes)"
 statistic Busoff_test1.Adversary.bufferOut size:stats
-field count 51
-field mean 4.5882352941176
-field stddev 4.5439034786766
+field count 49
+field mean 4.5918367346939
+field stddev 4.5456864504849
 field min 0
 field max 9
-field sum 234
-field sqrsum 2106
+field sum 225
+field sqrsum 2025
 attr interpolationmode sample-hold
 attr source size
 attr title "Queue Size, stats"
 attr unit B
 statistic Busoff_test1.Adversary.bufferOut length:stats
-field count 51
-field mean 0.50980392156863
-field stddev 0.5048781642974
+field count 49
+field mean 0.51020408163265
+field stddev 0.50507627227611
 field min 0
 field max 1
-field sum 26
-field sqrsum 26
+field sum 25
+field sqrsum 25
 attr interpolationmode sample-hold
 attr source length
 attr title "Queue Length, stats"
@@ -460,7 +460,7 @@ attr unit packets
 scalar Busoff_test1.Adversary.sourceApp[0] txRF:count 0
 attr source txRF
 attr title "source app remote frame, count"
-scalar Busoff_test1.Adversary.sourceApp[0] txDF:count 26
+scalar Busoff_test1.Adversary.sourceApp[0] txDF:count 25
 attr source txDF
 attr title "source app data frame, count"
 statistic Busoff_test1.Adversary.sinkApp[0] rxRFPayloadLatency:stats
@@ -548,7 +548,7 @@ attr source timestampAge(rxDF)
 attr title "End-to-end latency of data frames, stats"
 attr unit s
 statistic Busoff_test1.Adversary.canClock clockDrift:stats
-field count 27
+field count 26
 field mean 0
 field stddev 0
 field min 0
@@ -572,13 +572,13 @@ attr source timestampAge(rxRFPayload)
 attr title "End-to-end latency of remote frame payload, stats"
 attr unit s
 statistic Busoff_test1.Receiver.canNodePort.canPortInput rxDFPayloadLatency:stats
-field count 43
-field mean 0.0020483720930233
-field stddev 0.0023316506826429
-field min 0.00068
-field max 0.01234
-field sum 0.08808
-field sqrsum 0.0004087576
+field count 42
+field mean 0.0027852380952381
+field stddev 0.0023703197665266
+field min 0.00135
+field max 0.01309
+field sum 0.11698
+field sqrsum 0.0005561722
 attr interpolationmode linear
 attr source timestampAge(rxDFPayload)
 attr title "End-to-end latency of data frame payload, stats"
@@ -598,17 +598,17 @@ attr interpolationmode linear
 attr source timestampAge(rxRF)
 attr title "End-to-end latency of remote frames, stats"
 attr unit s
-scalar Busoff_test1.Receiver.canNodePort.canPortInput rxDF:count 43
+scalar Busoff_test1.Receiver.canNodePort.canPortInput rxDF:count 42
 attr source rxDF
 attr title "complete data frames received, count"
 statistic Busoff_test1.Receiver.canNodePort.canPortInput rxDFLatency:stats
-field count 43
-field mean 0.0020483720930233
-field stddev 0.0023316506826429
-field min 0.00068
-field max 0.01234
-field sum 0.08808
-field sqrsum 0.0004087576
+field count 42
+field mean 0.0027852380952381
+field stddev 0.0023703197665266
+field min 0.00135
+field max 0.01309
+field sum 0.11698
+field sqrsum 0.0005561722
 attr interpolationmode linear
 attr source timestampAge(rxDF)
 attr title "End-to-end latency of data frames, stats"
@@ -625,19 +625,19 @@ attr title "sent data frames, count"
 scalar Busoff_test1.Receiver.canNodePort.canPortOutput rxEF:count 0
 attr source rxEF
 attr title "receive errors, count"
-scalar Busoff_test1.Receiver.bufferIn[0] txPk:count 43
+scalar Busoff_test1.Receiver.bufferIn[0] txPk:count 42
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, count"
-scalar Busoff_test1.Receiver.bufferIn[0] txPk:sum(packetBytes) 405
+scalar Busoff_test1.Receiver.bufferIn[0] txPk:sum(packetBytes) 396
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, sum(packetBytes)"
-scalar Busoff_test1.Receiver.bufferIn[0] rxPk:count 43
+scalar Busoff_test1.Receiver.bufferIn[0] rxPk:count 42
 attr interpolationmode none
 attr source rxPk
 attr title "RX Packets, count"
-scalar Busoff_test1.Receiver.bufferIn[0] rxPk:sum(packetBytes) 405
+scalar Busoff_test1.Receiver.bufferIn[0] rxPk:sum(packetBytes) 396
 attr interpolationmode none
 attr source rxPk
 attr title "RX Packets, sum(packetBytes)"
@@ -739,25 +739,25 @@ bin	-inf	0
 bin	0	0
 bin	1	0
 statistic Busoff_test1.Receiver.sinkApp[0] rxDFPayloadLatency:stats
-field count 43
-field mean 0.0020483720930233
-field stddev 0.0023316506826429
-field min 0.00068
-field max 0.01234
-field sum 0.08808
-field sqrsum 0.0004087576
+field count 42
+field mean 0.0027852380952381
+field stddev 0.0023703197665266
+field min 0.00135
+field max 0.01309
+field sum 0.11698
+field sqrsum 0.0005561722
 attr interpolationmode linear
 attr source timestampAge(rxDFPayload)
 attr title "End-to-end latency of data frame payload, stats"
 attr unit s
 statistic Busoff_test1.Receiver.sinkApp[0] rxDFPayloadLatency:histogram
-field count 43
-field mean 0.0020483720930233
-field stddev 0.0023316506826429
-field min 0.00068
-field max 0.01234
-field sum 0.08808
-field sqrsum 0.0004087576
+field count 42
+field mean 0.0027852380952381
+field stddev 0.0023703197665266
+field min 0.00135
+field max 0.01309
+field sum 0.11698
+field sqrsum 0.0005561722
 attr interpolationmode linear
 attr source timestampAge(rxDFPayload)
 attr title "End-to-end latency of data frame payload, histogram"
@@ -766,10 +766,10 @@ bin	-inf	0
 bin	0	0
 bin	0.0002	0
 bin	0.0004	0
-bin	0.0006	24
+bin	0.0006	0
 bin	0.0008	0
 bin	0.001	0
-bin	0.0012	0
+bin	0.0012	23
 bin	0.0014	0
 bin	0.0016	0
 bin	0.0018	0
@@ -777,11 +777,11 @@ bin	0.002	0
 bin	0.0022	0
 bin	0.0024	0
 bin	0.0026	0
-bin	0.0028	17
+bin	0.0028	0
 bin	0.003	0
 bin	0.0032	0
 bin	0.0034	0
-bin	0.0036	0
+bin	0.0036	17
 bin	0.0038	0
 bin	0.004	0
 bin	0.0042	0
@@ -813,10 +813,10 @@ bin	0.0092	0
 bin	0.0094	0
 bin	0.0096	0
 bin	0.0098	0
-bin	0.01	1
+bin	0.01	0
 bin	0.0102	0
 bin	0.0104	0
-bin	0.0106	0
+bin	0.0106	1
 bin	0.0108	0
 bin	0.011	0
 bin	0.0112	0
@@ -824,11 +824,11 @@ bin	0.0114	0
 bin	0.0116	0
 bin	0.0118	0
 bin	0.012	0
-bin	0.0122	1
+bin	0.0122	0
 bin	0.0124	0
 bin	0.0126	0
 bin	0.0128	0
-bin	0.013	0
+bin	0.013	1
 bin	0.0132	0
 bin	0.0134	0
 bin	0.0136	0
@@ -841,6 +841,10 @@ bin	0.0148	0
 bin	0.015	0
 bin	0.0152	0
 bin	0.0154	0
+bin	0.0156	0
+bin	0.0158	0
+bin	0.016	0
+bin	0.0162	0
 scalar Busoff_test1.Receiver.sinkApp[0] rxRF:count 0
 attr source rxRF
 attr title "sink app remote frame, count"
@@ -856,17 +860,17 @@ attr interpolationmode linear
 attr source timestampAge(rxRF)
 attr title "End-to-end latency of remote frames, stats"
 attr unit s
-scalar Busoff_test1.Receiver.sinkApp[0] rxDF:count 43
+scalar Busoff_test1.Receiver.sinkApp[0] rxDF:count 42
 attr source rxDF
 attr title "sink app data frame, count"
 statistic Busoff_test1.Receiver.sinkApp[0] rxDFLatency:stats
-field count 43
-field mean 0.0020483720930233
-field stddev 0.0023316506826429
-field min 0.00068
-field max 0.01234
-field sum 0.08808
-field sqrsum 0.0004087576
+field count 42
+field mean 0.0027852380952381
+field stddev 0.0023703197665266
+field min 0.00135
+field max 0.01309
+field sum 0.11698
+field sqrsum 0.0005561722
 attr interpolationmode linear
 attr source timestampAge(rxDF)
 attr title "End-to-end latency of data frames, stats"
