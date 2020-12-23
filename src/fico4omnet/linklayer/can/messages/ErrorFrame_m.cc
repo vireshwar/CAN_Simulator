@@ -186,6 +186,7 @@ ErrorFrame::ErrorFrame(const char *name, short kind) : ::omnetpp::cMessage(name,
     this->node = 0;
     this->kind = 0;
     this->pos = 0;
+    this->active = 1;
 }
 
 ErrorFrame::ErrorFrame(const ErrorFrame& other) : ::omnetpp::cMessage(other)
@@ -211,6 +212,7 @@ void ErrorFrame::copy(const ErrorFrame& other)
     this->node = other.node;
     this->kind = other.kind;
     this->pos = other.pos;
+    this->active = other.active;
 }
 
 void ErrorFrame::parsimPack(omnetpp::cCommBuffer *b) const
@@ -220,6 +222,7 @@ void ErrorFrame::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->node);
     doParsimPacking(b,this->kind);
     doParsimPacking(b,this->pos);
+    doParsimPacking(b,this->active);
 }
 
 void ErrorFrame::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -229,6 +232,7 @@ void ErrorFrame::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->node);
     doParsimUnpacking(b,this->kind);
     doParsimUnpacking(b,this->pos);
+    doParsimUnpacking(b,this->active);
 }
 
 unsigned int ErrorFrame::getCanID() const
@@ -269,6 +273,16 @@ int ErrorFrame::getPos() const
 void ErrorFrame::setPos(int pos)
 {
     this->pos = pos;
+}
+
+bool ErrorFrame::getActive() const
+{
+    return this->active;
+}
+
+void ErrorFrame::setActive(bool act)
+{
+    this->active = act;
 }
 
 class ErrorFrameDescriptor : public omnetpp::cClassDescriptor

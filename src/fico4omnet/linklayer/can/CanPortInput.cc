@@ -28,11 +28,6 @@
 
 #include "fico4omnet/linklayer/can/CanPortInput.h"
 
-#include "fico4omnet/linklayer/can/CanPortOutput.h"
-#include "fico4omnet/buffer/can/CanOutputBuffer.h"
-
-#include "fico4omnet/nodes/can/ErrorConfinement.h"
-
 namespace FiCo4OMNeT {
 
 Define_Module(CanPortInput);
@@ -99,7 +94,9 @@ void CanPortInput::handleMessage(cMessage *msg) {
         }
         delete msg;
     } else if (ErrorFrame *ef = dynamic_cast<ErrorFrame *>(msg)) {
+        std::cout<<"ErrorFrame in PortInp received"<<endl;
         handleExternErrorFrame(ef);
+        std::cout<<"just before deletion of msg canportInP\n";
         delete msg;
     }
 }
@@ -226,6 +223,47 @@ void CanPortInput::handleExternErrorFrame(ErrorFrame *ef) {
             && ef->getCanID() == scheduledErrorFrame->getCanID()) {
         cancelAndDelete(scheduledErrorFrame);
         scheduledErrorFrame = nullptr;
+    }
+
+    ErrorConfinement* ec = check_and_cast<ErrorConfinement*>(getParentModule()->getParentModule()->getSubmodule("errorConfinement"));
+
+    std::cout<<"ErrorFrame in PortInp received 2 "<<ef->getActive()<<" "<<ec->getControllerState()<<endl;
+    if(ef->getActive()){
+        if(ec->getControllerState()==0){
+            if(amITheSendingNode())
+                 ec->transErrorReceived();
+            ErrorFrame* errorMsg = new ErrorFrame("StuffError");
+            errorMsg->setKind(3);
+            errorMsg->setCanID(ef->getCanID());
+            errorMsg->setActive(ec->getErrorState()==0);
+            forwardOwnErrorFrame(errorMsg);
+            ec->setControllerState(1);
+        }
+        else if(ec->getControllerState()==1){
+            //whether sent error flag is sent by this node
+            //Node error state must match with type of flag
+            if(ec->getErrorState()==0){
+                ec->setControllerState(0);
+                CanOutputBuffer* outputBuffer =
+                            dynamic_cast<CanOutputBuffer*> (getParentModule()->getParentModule()->getSubmodule("bufferOut"));
+                outputBuffer->retransmitDF();
+            }
+        }
+        else{
+
+        }
+
+    }
+    else{
+        if(ec->getControllerState()==0){
+
+        }
+        else if(ec->getControllerState()==1){
+
+        }
+        else{
+
+        }
     }
 }
 

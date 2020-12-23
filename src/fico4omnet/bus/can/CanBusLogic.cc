@@ -97,6 +97,7 @@ void CanBusLogic::handleMessage(cMessage *msg) {
             numBitsSent += static_cast<unsigned long> (df->getBitLength());
             sendingCompleted();
         } else if (dynamic_cast<ErrorFrame *>(msg)) {
+            send(msg->dup(), "gate$o");
             colorIdle();
             emit(stateSignal, static_cast<long>(State::IDLE));
             if (scheduledDataFrame != nullptr) {
@@ -127,19 +128,21 @@ void CanBusLogic::grantSendingPermission() {
     unsigned int sendByteLength = INT_MAX;
     CanID* sendingid = nullptr;
 
-    std::cout<<ids.size()<<" Ids length\n";
+//    std::cout<<ids.size()<<" Ids length\n";
     for (std::list<CanID*>::iterator it = ids.begin(); it != ids.end(); ++it) {
         CanID *id = *it;
         if (id->getCanID() < currentSendingID) {
             currentSendingID = id->getCanID();
             sendingNode = dynamic_cast<CanOutputBuffer*> (id->getNode());
             sendingid = id;
+            sendByteLength = id->getDlc();
             currsit = id->getSignInTime();
         }
 
         else if(id->getCanID() == currentSendingID &&(id->getDlc()<sendByteLength))
         {
             sendingNode = dynamic_cast<CanOutputBuffer*> (id->getNode());
+            sendByteLength = std::min(sendByteLength,id->getDlc());
             sendingid = id;
             currsit = id->getSignInTime();
         }
@@ -164,46 +167,58 @@ void CanBusLogic::grantSendingPermission() {
         getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
         getParentModule()->getDisplayString().setTagArg("tt", 0, "WARNING: More than one node sends with the same ID.");
 
-        idle = true;
+//        idle = true;
 
-        bool advFail = false;
-        for (unsigned int it = 0; it != eraseids.size(); it++) {
-            std::list<CanID*>::iterator ite = eraseids.at(it);
-            CanID *id = *ite;
-            if(sendingNode!=id->getNode() &&  id->getCanID() == currentSendingID){
-                CanOutputBuffer* controller = check_and_cast<CanOutputBuffer *>(
-                                id->getNode());
-                unsigned int es = controller->getErrorState();
-                if(es==0)
-                    advFail = true;
-            }
-        }
-
-
-        if(advFail){
-            for (unsigned int it = 0; it != eraseids.size(); it++) {
-                std::list<CanID*>::iterator ite = eraseids.at(it);
-                CanID *id = *ite;
-
-                sendingNotCompleted(id,sendingid->getBitLength());
-
-                delete *(ite);
-                ids.erase(ite);
-            }
-
-            sendingNode = nullptr;
-            eraseids.clear();
-
-//            errored = false;
-//            if (scheduledDataFrame != nullptr) {
-//                cancelEvent(scheduledDataFrame);
+//        bool advFail = false;
+//        for (unsigned int it = 0; it != eraseids.size(); it++) {
+//            std::list<CanID*>::iterator ite = eraseids.at(it);
+//            CanID *id = *ite;
+//            if(sendingNode!=id->getNode() &&  id->getCanID() == currentSendingID){
+//                CanOutputBuffer* controller = check_and_cast<CanOutputBuffer *>(
+//                                id->getNode());
+//                unsigned int es = controller->getErrorState();
+//                if(es==0)
+//                    advFail = true;
 //            }
-//            scheduledDataFrame = nullptr;
-        }
+//        }
+//
+//
+//        if(advFail){
+//            for (unsigned int it = 0; it != eraseids.size(); it++) {
+//                std::list<CanID*>::iterator ite = eraseids.at(it);
+//                CanID *id = *ite;
+//
+//                sendingNotCompleted(id,sendingid->getBitLength());
+//
+//                delete *(ite);
+//                ids.erase(ite);
+//            }
+//
+//            sendingNode = nullptr;
+//            eraseids.clear();
+//
+////            errored = false;
+////            if (scheduledDataFrame != nullptr) {
+////                cancelEvent(scheduledDataFrame);
+////            }
+////            scheduledDataFrame = nullptr;
+//        }
     }
 
 
     if (sendingNode != nullptr) {
+        for (unsigned int it = 0; it != eraseids.size(); it++) {
+             std::list<CanID*>::iterator ite = eraseids.at(it);
+             CanID *id = *ite;
+
+             if(sendingNode != id->getNode() || id->getCanID()!= currentSendingID)
+             {
+                 sendingNotCompleted(id,sendingid->getBitLength());
+             }
+             delete *(ite);
+             ids.erase(ite);
+        }
+
         CanOutputBuffer* controller = check_and_cast<CanOutputBuffer *>(
                 sendingNode);
         controller->receiveSendingPermission(currentSendingID);
@@ -220,27 +235,16 @@ void CanBusLogic::sendingCompleted() {
     CanOutputBuffer* controller = check_and_cast<CanOutputBuffer*>(sendingNode);
     controller->sendingCompleted();
 
-    CanID *sendingid;
-    for (unsigned int it = 0; it != eraseids.size(); it++) {
-        std::list<CanID*>::iterator ite = eraseids.at(it);
-        CanID *id = *ite;
-        if(sendingNode == id->getNode())
-        {
-            sendingid = id;
-        }
-    }
+//    CanID *sendingid;
+//    for (unsigned int it = 0; it != eraseids.size(); it++) {
+//        std::list<CanID*>::iterator ite = eraseids.at(it);
+//        CanID *id = *ite;
+//        if(sendingNode == id->getNode())
+//        {
+//            sendingid = id;
+//        }
+//    }
 
-    for (unsigned int it = 0; it != eraseids.size(); it++) {
-        std::list<CanID*>::iterator ite = eraseids.at(it);
-        CanID *id = *ite;
-
-        if(sendingNode != id->getNode() || id->getCanID()!= currentSendingID)
-        {
-            sendingNotCompleted(id,sendingid->getBitLength());
-        }
-        delete *(ite);
-        ids.erase(ite);
-    }
     emit(arbitrationLengthSignal, static_cast<unsigned long>(ids.size()));
     eraseids.clear();
     errored = false;
@@ -294,7 +298,6 @@ void CanBusLogic::handleErrorFrame(cMessage *msg) {
         scheduleAt(simTime() + (MAXERRORFRAMESIZE / (bandwidth)), ef2);
         emit(rcvdEFSignal, ef2);
         errored = true;
-        send(msg->dup(), "gate$o");
     }
 }
 

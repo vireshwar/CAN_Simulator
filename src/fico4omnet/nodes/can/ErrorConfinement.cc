@@ -47,7 +47,47 @@ unsigned int ErrorConfinement::getErrorState(){
     return this->errorState;
 }
 
+void ErrorConfinement::setControllerState(unsigned int assignControllerState){
+    this->controllerState = assignControllerState;
+}
 
+unsigned int ErrorConfinement::getControllerState(){
+    return this->controllerState;
+}
+
+void ErrorConfinement::transErrorReceived(){
+    TEC = TEC+8;
+    std::string display = "TEC = "+std::to_string(TEC);
+    getParentModule()->cComponent::bubble(&display[0]);
+    getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
+    getParentModule()->getDisplayString().setTagArg("tt", 0, &display[0]);
+    if(TEC>=256 && errorState==1){
+        errorState = 2;
+        getParentModule()->cComponent::bubble("Bus-off state");
+        getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
+        getParentModule()->getDisplayString().setTagArg("tt", 0, "WARNING: TEC>=256");
+    }
+    else if(TEC>=128 && errorState==0){
+        errorState = 1;
+        getParentModule()->cComponent::bubble("Error-Passive state");
+        getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
+        getParentModule()->getDisplayString().setTagArg("tt", 0, "WARNING: TEC>=128");
+    }
+}
+
+void ErrorConfinement::transSuccess(){
+    if(TEC>0){
+        TEC = TEC -1;
+
+        std::string display = "TEC = "+std::to_string(TEC);
+        getParentModule()->cComponent::bubble(&display[0]);
+        getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
+        getParentModule()->getDisplayString().setTagArg("tt", 0, &display[0]);
+
+        if(TEC<128 && errorState!=0)
+            errorState = 0;
+    }
+}
 
 }
 

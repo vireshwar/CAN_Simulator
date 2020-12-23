@@ -7,6 +7,7 @@
   fico4omnet/linklayer/can/CanPortOutput.h \
   fico4omnet/buffer/can/CanOutputBuffer.h \
   fico4omnet/buffer/can/CanBuffer.h fico4omnet/buffer/Buffer.h \
+  fico4omnet/bus/can/CanBusLogic.h fico4omnet/bus/can/CanID.h \
   fico4omnet/nodes/can/ErrorConfinement.h
 
 fico4omnet/linklayer/can/CanPortInput.h:
@@ -26,5 +27,9 @@ fico4omnet/buffer/can/CanOutputBuffer.h:
 fico4omnet/buffer/can/CanBuffer.h:
 
 fico4omnet/buffer/Buffer.h:
+
+fico4omnet/bus/can/CanBusLogic.h:
+
+fico4omnet/bus/can/CanID.h:
 
 fico4omnet/nodes/can/ErrorConfinement.h:

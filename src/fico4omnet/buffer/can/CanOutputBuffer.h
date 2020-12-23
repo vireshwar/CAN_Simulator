@@ -31,8 +31,13 @@
 
 //FiCo4OMNeT
 #include "fico4omnet/base/FiCo4OMNeT_Defs.h"
-
+#include "fico4omnet/linklayer/can/messages/ErrorFrame_m.h"
 #include "fico4omnet/buffer/can/CanBuffer.h"
+
+#include "fico4omnet/bus/can/CanBusLogic.h"
+#include "fico4omnet/linklayer/can/CanPortOutput.h"
+#include "fico4omnet/nodes/can/ErrorConfinement.h"
+
 
 namespace FiCo4OMNeT {
 
@@ -71,7 +76,9 @@ public:
 
     unsigned int getErrorState();
 
+    unsigned int getControllerState();
 
+    void retransmitDF();
     /**
      * @brief Puts the frame into the collection and informs the connected gates about the receiption.
      *
@@ -111,6 +118,7 @@ private:
     */
     CanDataFrame *retransmitDataFrame;
 
+    ErrorFrame* generateError();
 };
 
 }

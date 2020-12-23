@@ -26,16 +26,13 @@
 //(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
 #include "fico4omnet/buffer/can/CanOutputBuffer.h"
-
-#include "fico4omnet/bus/can/CanBusLogic.h"
-#include "fico4omnet/linklayer/can/CanPortOutput.h"
-
-#include "fico4omnet/nodes/can/ErrorConfinement.h"
 
 namespace FiCo4OMNeT {
 
 Define_Module(CanOutputBuffer);
+
 
 CanOutputBuffer::~CanOutputBuffer(){
     for (std::list<cMessage*>::iterator it =  frames.begin(); it != frames.end(); ++it)
@@ -51,10 +48,20 @@ void CanOutputBuffer::handleMessage(cMessage *msg) {
         return;
     }
     if (msg->isSelfMessage()) {
-        if(retransmitDataFrame != nullptr){
-            registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getByteLength());
-            retransmitDataFrame = nullptr;
+        if(getControllerState() == 0){
+            ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+            ec->setControllerState(1);
+            CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
+                    getParentModule()->getSubmodule("canNodePort")->getSubmodule(
+                            "canPortOutput"));
+            ErrorFrame* ef = generateError();
+            sendDirect(ef, portOutput, "directIn");
         }
+        //This part is while delimiter handling
+//        if(retransmitDataFrame != nullptr){
+//            registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getByteLength());
+//            retransmitDataFrame = nullptr;
+//        }
         delete msg;
     }
     else if (msg->arrivedOn("in") || msg->arrivedOn("directIn")) {
@@ -122,22 +129,7 @@ void CanOutputBuffer::sendingCompleted() {
     currentFrame = nullptr;
 
     ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
-    unsigned int state = ec->getErrorState();
-    unsigned int newTEC = ec->getTEC();
-    if(newTEC>0){
-        newTEC = newTEC -1;
-        ec->setTEC(newTEC);
-
-        std::string display = "TEC = "+std::to_string(newTEC);
-        getParentModule()->cComponent::bubble(&display[0]);
-        getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
-        getParentModule()->getDisplayString().setTagArg("tt", 0, &display[0]);
-
-        if(newTEC<128 && state!=0)
-            ec->setErrorState(0);
-    }
-
-    std::cout<<ec->getErrorState()<<" "<<ec->getTEC()<<"\n";
+    ec->transSuccess();
     CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
             getParentModule()->getSubmodule("canNodePort")->getSubmodule(
                     "canPortOutput"));
@@ -175,37 +167,16 @@ void CanOutputBuffer::sendingNotCompleted(unsigned int canID,bool error,unsigned
         //SOF -1 ID-11 SRR-1 IDE-1 IDEN-18 RTR-1 R0-1 R1-1
         if(state==0){
             cMessage *self = new cMessage("idle_signin");
-            scheduleAt(simTime()+(35+12+8+3)/bandwidth, self);
-//            registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getByteLength());
+            scheduleAt(simTime()+(35)/bandwidth, self);
         }
         else if(state==1 && newTEC<256){
             cMessage *self = new cMessage("idle_signin");
             scheduleAt(simTime()+(bitlength+11)/bandwidth, self);
-//            registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getByteLength());
         }
-
-        ec->setTEC(newTEC);
-        std::string display = "TEC = "+std::to_string(newTEC);
-        getParentModule()->cComponent::bubble(&display[0]);
-        getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
-        getParentModule()->getDisplayString().setTagArg("tt", 0, &display[0]);
-        if(newTEC>=256 && state==1){
-            ec->setErrorState(2);
-            retransmitDataFrame = nullptr;
-            getParentModule()->cComponent::bubble("Bus-off state");
-            getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
-            getParentModule()->getDisplayString().setTagArg("tt", 0, "WARNING: TEC>=256");
-        }
-        else if(newTEC>=128 && state==0){
-            ec->setErrorState(1);
-            getParentModule()->cComponent::bubble("Error-Passive state");
-            getParentModule()->getDisplayString().setTagArg("i2", 0, "status/excl3");
-            getParentModule()->getDisplayString().setTagArg("tt", 0, "WARNING: TEC>=128");
-        }
+        ec->transErrorReceived();
     }
     else{
         registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getByteLength());
-//        std::cout<<"No error : Arb failed\n";
     }
 
     emit(rxPkSignal, frame);
@@ -214,6 +185,31 @@ void CanOutputBuffer::sendingNotCompleted(unsigned int canID,bool error,unsigned
 unsigned int CanOutputBuffer::getErrorState(){
     ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
     return  ec->getErrorState();
+}
+
+unsigned int CanOutputBuffer::getControllerState(){
+    ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+    return  ec->getControllerState();
+}
+
+ErrorFrame* CanOutputBuffer::generateError() {
+    ErrorFrame *errorMsg = new ErrorFrame("BitError");
+//    int errorPos = intuniform(0, static_cast<int>(retransmitDataFrame->getBitLength()) - MAXERRORFRAMESIZE);
+    errorMsg->setKind(0);
+    errorMsg->setCanID(retransmitDataFrame->getCanID());
+//    if (errorPos > 0)
+//        errorPos--;
+//    errorMsg->setPos(errorPos);
+    errorMsg->setActive(getErrorState()==0);
+    return errorMsg;
+}
+
+void CanOutputBuffer::retransmitDF() {
+    //add IFS
+    if(retransmitDataFrame != nullptr){
+        registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getByteLength());
+        retransmitDataFrame = nullptr;
+    }
 }
 
 }

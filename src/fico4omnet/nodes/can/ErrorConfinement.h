@@ -38,7 +38,13 @@ public:
 
     unsigned int getErrorState();
 
+    void setControllerState(unsigned int controllerState);
 
+    unsigned int getControllerState();
+
+    void transErrorReceived();
+
+    void transSuccess();
 
 private:
     unsigned int TEC;
@@ -47,6 +53,12 @@ private:
 
     unsigned int errorState; //0->Error Active  1->Error Passive 2->BusOFF
 
+    /**
+    * @brief 0 -> Normal Transmitting State
+    * 1 -> Error Flag Transmission
+    * 2 -> Delimiter
+    */
+    unsigned int controllerState = 0;
 };
 
 

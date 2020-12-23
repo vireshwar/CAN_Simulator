@@ -45,6 +45,7 @@ class ErrorFrame : public ::omnetpp::cMessage
     int node;
     int kind;
     int pos;
+    bool active;
 
   private:
     void copy(const ErrorFrame& other);
@@ -71,6 +72,8 @@ class ErrorFrame : public ::omnetpp::cMessage
     virtual void setKind(int kind);
     virtual int getPos() const;
     virtual void setPos(int pos);
+    virtual bool getActive() const;
+    virtual void setActive(bool act);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const ErrorFrame& obj) {obj.parsimPack(b);}

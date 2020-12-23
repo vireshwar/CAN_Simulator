@@ -40,4 +40,6 @@ message ErrorFrame{
 	int kind;
 	// position of the error in the corresponding data-frame
 	int pos;
+	
+	bool active;
 }

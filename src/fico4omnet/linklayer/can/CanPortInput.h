@@ -35,6 +35,10 @@
 #include "fico4omnet/linklayer/can/messages/CanDataFrame_m.h"
 #include "fico4omnet/linklayer/can/messages/ErrorFrame_m.h"
 
+#include "fico4omnet/linklayer/can/CanPortOutput.h"
+#include "fico4omnet/buffer/can/CanOutputBuffer.h"
+#include "fico4omnet/nodes/can/ErrorConfinement.h"
+
 namespace FiCo4OMNeT {
 
 /**
@@ -149,6 +153,7 @@ private:
      * @brief Currently scheduled error frame
      */
     ErrorFrame *scheduledErrorFrame;
+
 
     /**
      * @brief Incoming data frame is scheduled until transmission is completed.
