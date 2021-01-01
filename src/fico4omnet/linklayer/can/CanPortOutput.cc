@@ -82,7 +82,9 @@ void CanPortOutput::handleMessage(cMessage *msg) {
     }
 
     if (ErrorFrame *ef = dynamic_cast<ErrorFrame *>(msg)) {
+        std::cout<<"Outside "<<simTime()<<endl;
         if (!errorReceived) {
+            std::cout<<"Inside"<<endl;
             if (ef->getKind() < 2) { //TODO magic number
                 emit(sendErrorsSignal, ef);
             } else {

@@ -79,6 +79,7 @@ public:
     unsigned int getControllerState();
 
     void retransmitDF();
+
     /**
      * @brief Puts the frame into the collection and informs the connected gates about the receiption.
      *
@@ -86,6 +87,16 @@ public:
      *
      */
     virtual void putFrame(cMessage* msg);
+
+    /**
+     * @brief Bit-wise Delimiter Handling
+     *
+     * @param msg The frame to put in the buffer.
+     *
+     */
+    void handleDelimiter();
+
+    void setRetransmitDF();
 
 protected:
     /**
@@ -119,6 +130,11 @@ private:
     CanDataFrame *retransmitDataFrame;
 
     ErrorFrame* generateError();
+
+    /**
+    * @brief Counts 8 receccisive bits after errorFrame transmission to check
+    */
+    unsigned int delimCounter = 0;
 };
 
 }

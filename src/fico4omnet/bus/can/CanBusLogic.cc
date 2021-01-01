@@ -289,13 +289,17 @@ void CanBusLogic::handleDataFrame(cMessage *msg) {
 }
 
 void CanBusLogic::handleErrorFrame(cMessage *msg) {
-    if (scheduledDataFrame != nullptr) {
+    ErrorFrame *ef = check_and_cast<ErrorFrame *>(msg);
+    if (scheduledDataFrame != nullptr && ef->getActive()) {
         cancelEvent(scheduledDataFrame);
     }
     if (!errored) {
+        idle = false;   //Bus would not be idle while error frame is being transmitted
+
         numErrorFrames++;
-        ErrorFrame *ef2 = new ErrorFrame();
-        scheduleAt(simTime() + (MAXERRORFRAMESIZE / (bandwidth)), ef2);
+        ErrorFrame *ef2 = ef->dup();
+//        scheduleAt(simTime() + (MAXERRORFRAMESIZE / (bandwidth)), ef2);
+        scheduleAt(simTime() + (6 / (bandwidth)),ef2 );
         emit(rcvdEFSignal, ef2);
         errored = true;
     }
@@ -345,6 +349,10 @@ void CanBusLogic::checkoutFromArbitration(unsigned int canID) {
         }
     }
     emit(arbitrationLengthSignal, static_cast<unsigned long>(ids.size()));
+}
+
+bool CanBusLogic::isIdle(){
+    return idle;
 }
 
 void CanBusLogic::colorBusy() {

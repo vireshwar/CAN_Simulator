@@ -59,7 +59,7 @@ void CanPortInput::handleMessage(cMessage *msg) {
     ErrorConfinement* ec = check_and_cast<ErrorConfinement*>(getParentModule()->getParentModule()->getSubmodule("errorConfinement"));
     unsigned int errorState= ec->getErrorState();
     if(errorState==2){
-        std::cout<<"Hi CPInput\n";
+//        std::cout<<"Hi CPInput\n";
         if (scheduledDataFrame != nullptr) {
             cancelEvent(scheduledDataFrame);
         }
@@ -94,9 +94,7 @@ void CanPortInput::handleMessage(cMessage *msg) {
         }
         delete msg;
     } else if (ErrorFrame *ef = dynamic_cast<ErrorFrame *>(msg)) {
-        std::cout<<"ErrorFrame in PortInp received"<<endl;
         handleExternErrorFrame(ef);
-        std::cout<<"just before deletion of msg canportInP\n";
         delete msg;
     }
 }
@@ -205,12 +203,12 @@ void CanPortInput::handleExternErrorFrame(ErrorFrame *ef) {
             dynamic_cast<CanPortOutput*> (getParentModule()->getSubmodule("canPortOutput"));
     portOutput->sendingCompleted();
 
-    if ((checkOutgoingDataFrames(ef->getCanID())
-            || checkOutgoingRemoteFrames(ef->getCanID()))) {
-        if (ef->getKind() > 2) {
-            portOutput->handleReceivedErrorFrame();
-        }
-    }
+//    if ((checkOutgoingDataFrames(ef->getCanID())
+//            || checkOutgoingRemoteFrames(ef->getCanID()))) {
+//        if (ef->getKind() > 2) {
+//            portOutput->handleReceivedErrorFrame();
+//        }
+//    }
 
     if (scheduledDataFrame != nullptr && scheduledDataFrame->isScheduled()
 
@@ -226,10 +224,13 @@ void CanPortInput::handleExternErrorFrame(ErrorFrame *ef) {
     }
 
     ErrorConfinement* ec = check_and_cast<ErrorConfinement*>(getParentModule()->getParentModule()->getSubmodule("errorConfinement"));
+    CanOutputBuffer* outputBuffer =
+                dynamic_cast<CanOutputBuffer*> (getParentModule()->getParentModule()->getSubmodule("bufferOut"));
 
-    std::cout<<"ErrorFrame in PortInp received 2 "<<ef->getActive()<<" "<<ec->getControllerState()<<endl;
     if(ef->getActive()){
         if(ec->getControllerState()==0){
+            outputBuffer->setRetransmitDF();
+
             if(amITheSendingNode())
                  ec->transErrorReceived();
             ErrorFrame* errorMsg = new ErrorFrame("StuffError");
@@ -237,32 +238,27 @@ void CanPortInput::handleExternErrorFrame(ErrorFrame *ef) {
             errorMsg->setCanID(ef->getCanID());
             errorMsg->setActive(ec->getErrorState()==0);
             forwardOwnErrorFrame(errorMsg);
+
             ec->setControllerState(1);
         }
         else if(ec->getControllerState()==1){
             //whether sent error flag is sent by this node
             //Node error state must match with type of flag
             if(ec->getErrorState()==0){
-                ec->setControllerState(0);
-                CanOutputBuffer* outputBuffer =
-                            dynamic_cast<CanOutputBuffer*> (getParentModule()->getParentModule()->getSubmodule("bufferOut"));
-                outputBuffer->retransmitDF();
-            }
-        }
-        else{
+                ec->setControllerState(2);
 
+                outputBuffer->handleDelimiter();
+            }
         }
 
     }
     else{
-        if(ec->getControllerState()==0){
+        if(ec->getControllerState()==1){
+            if(ec->getErrorState()==1){
+                ec->setControllerState(2);
 
-        }
-        else if(ec->getControllerState()==1){
-
-        }
-        else{
-
+                outputBuffer->handleDelimiter();
+            }
         }
     }
 }

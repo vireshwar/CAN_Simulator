@@ -48,20 +48,27 @@ void CanOutputBuffer::handleMessage(cMessage *msg) {
         return;
     }
     if (msg->isSelfMessage()) {
-        if(getControllerState() == 0){
-            ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+        ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+        unsigned int cs =  ec->getControllerState();
+        if(cs == 0){
             ec->setControllerState(1);
             CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
                     getParentModule()->getSubmodule("canNodePort")->getSubmodule(
                             "canPortOutput"));
             ErrorFrame* ef = generateError();
+            ec->transErrorReceived();
             sendDirect(ef, portOutput, "directIn");
         }
-        //This part is while delimiter handling
-//        if(retransmitDataFrame != nullptr){
-//            registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getByteLength());
-//            retransmitDataFrame = nullptr;
-//        }
+        else if(cs == 2){
+            if(delimCounter==8){
+                delimCounter = 0;
+                ec->setControllerState(0);
+                retransmitDF();
+            }
+            else{
+                handleDelimiter();
+            }
+        }
         delete msg;
     }
     else if (msg->arrivedOn("in") || msg->arrivedOn("directIn")) {
@@ -171,9 +178,9 @@ void CanOutputBuffer::sendingNotCompleted(unsigned int canID,bool error,unsigned
         }
         else if(state==1 && newTEC<256){
             cMessage *self = new cMessage("idle_signin");
-            scheduleAt(simTime()+(bitlength+11)/bandwidth, self);
+            scheduleAt(simTime()+(bitlength-6)/bandwidth, self);
         }
-        ec->transErrorReceived();
+        else  ec->transErrorReceived();
     }
     else{
         registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getByteLength());
@@ -204,12 +211,38 @@ ErrorFrame* CanOutputBuffer::generateError() {
     return errorMsg;
 }
 
+void CanOutputBuffer::handleDelimiter(){
+    Enter_Method_Silent
+    ();
+    CanBusLogic *canBusLogic =
+            dynamic_cast<CanBusLogic*> (getParentModule()->gate("gate$o")->getPathEndGate()->getOwnerModule()->getParentModule()->getSubmodule(
+                    "canBusLogic"));
+    CanPortOutput* cpo = check_and_cast<CanPortOutput*>(getParentModule()->getSubmodule("canNodePort")->getSubmodule("canPortOutput"));
+    double bandwidth = cpo->getBandwidth();
+
+    if(canBusLogic->isIdle()){
+        delimCounter++;
+    }
+    else if(delimCounter){
+        delimCounter = 0;
+        //passive -> controllerTs=1 and TEC+=8
+    }
+
+    cMessage *self = new cMessage("idle_signin");
+    scheduleAt(simTime()+(1)/bandwidth, self);
+}
+
 void CanOutputBuffer::retransmitDF() {
     //add IFS
     if(retransmitDataFrame != nullptr){
         registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getByteLength());
         retransmitDataFrame = nullptr;
     }
+}
+
+void CanOutputBuffer::setRetransmitDF() {
+    //Verify
+    retransmitDataFrame = currentFrame;
 }
 
 }

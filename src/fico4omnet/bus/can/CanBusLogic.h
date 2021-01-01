@@ -102,6 +102,10 @@ DUPPP
      * @return object ID  of the currently transmitting module
      */
     int getSendingNodeID();
+    /**
+     * @brief Returns if bus is idle.
+    */
+    bool isIdle();
 
 protected:
     enum class State {
