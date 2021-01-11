@@ -93,7 +93,8 @@ void CanOutputBuffer::putFrame(cMessage* msg) {
 
     //    registerForArbitration(frame->getCanID(), frame->getRtr());
 
-        registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getByteLength());
+//        std::cout << "DLC Bit-byte "<< frame->getBitLength() <<" "<<frame->getByteLength() << " "<<simTime()<<endl;
+        registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getBitLength());
         emit(rxPkSignal, msg);
  }
 
@@ -104,13 +105,13 @@ void CanOutputBuffer::registerForArbitration(unsigned int canID, bool rtr) {
     canBusLogic->registerForArbitration(canID, this, simTime(), rtr);
 }
 
-void CanOutputBuffer::registerForArbitration(unsigned int canID, bool rtr, unsigned int bytelength) {
+void CanOutputBuffer::registerForArbitration(unsigned int canID, bool rtr, unsigned int bitlength) {
 
     //should register after delay
     CanBusLogic *canBusLogic =
             dynamic_cast<CanBusLogic*> (getParentModule()->gate("gate$o")->getPathEndGate()->getOwnerModule()->getParentModule()->getSubmodule(
                     "canBusLogic"));
-    canBusLogic->registerForArbitration(canID, this, simTime(), rtr, bytelength);
+    canBusLogic->registerForArbitration(canID, this, simTime(), rtr, bitlength);
 }
 
 void CanOutputBuffer::checkoutFromArbitration(unsigned int canID) {
@@ -183,7 +184,7 @@ void CanOutputBuffer::sendingNotCompleted(unsigned int canID,bool error,unsigned
         else  ec->transErrorReceived();
     }
     else{
-        registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getByteLength());
+        registerForArbitration(frame->getCanID(), frame->getRtr(), (unsigned int)frame->getBitLength());
     }
 
     emit(rxPkSignal, frame);
@@ -235,7 +236,7 @@ void CanOutputBuffer::handleDelimiter(){
 void CanOutputBuffer::retransmitDF() {
     //add IFS
     if(retransmitDataFrame != nullptr){
-        registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getByteLength());
+        registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getBitLength());
         retransmitDataFrame = nullptr;
     }
 }

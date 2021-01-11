@@ -78,7 +78,7 @@ public:
 DUPPP
      */
     virtual void registerForArbitration(unsigned int canID, cModule *module,
-            simtime_t signInTime, bool rtr, unsigned int bytelength);
+            simtime_t signInTime, bool rtr, unsigned int bitlength);
 
     /**
      * @brief The request for frame with the corresponding ID will be checked out.

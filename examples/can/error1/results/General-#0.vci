@@ -1,4 +1,4 @@
-file 3710 1608105114                                            
+file 3710 1609863960                                            
 version 2
 run General-0-20201216-12:52:34-12396
 attr configname General
@@ -31,79 +31,78 @@ attr interpolationmode linear
 attr source clockDrift
 attr title "clockDrift, vector"
 attr unit s
+0	3168 36 0 17 0 0.008 3 0 0 0 0
+0	3613 13 41 41 0.01 0.01 1 0 0 0 0
 vector 1 Error1.node[1].canClock clockDrift:vector ETV
 attr interpolationmode linear
 attr source clockDrift
 attr title "clockDrift, vector"
 attr unit s
+1	3204 9 0 0 0 0 1 0 0 0 0
 vector 2 Error1.node[0].bufferOut rxPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source rxPk
 attr title "RX Packets, vector(packetBytes)"
+2	3213 54 2 18 0.005 0.008 4 6 6 24 144
+2	3626 26 42 42 0.01 0.01 2 6 6 12 72
 vector 3 Error1.node[0].bufferOut length:vector ETV
 attr interpolationmode sample-hold
 attr source length
 attr title "Queue Length, vector"
 attr unit packets
+3	3267 60 2 24 0.005 0.008048 4 0 1 2 2
+3	3652 13 42 42 0.01 0.01 1 1 1 1 1
 vector 4 Error1.node[0].bufferOut size:vector ETV
 attr interpolationmode sample-hold
 attr source size
 attr title "Queue Size, vector"
 attr unit B
+4	3327 60 2 24 0.005 0.008048 4 0 6 12 72
+4	3665 13 42 42 0.01 0.01 1 6 6 6 36
 vector 5 Error1.bus.canBusLogic arbitrationLength:vector ETV
 attr interpolationmode sample-hold
 attr source arbitrationLength
 attr title "Arbitration Length, vector"
 attr unit packets
+5	3387 60 2 24 0.005 0.008048 4 0 1 2 2
+5	3678 13 42 42 0.01 0.01 1 1 1 1 1
 vector 6 Error1.node[0].bufferOut txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, vector(packetBytes)"
+6	3447 33 3 19 0.005001 0.008001 2 6 6 12 72
+6	3691 19 43 43 0.010001 0.010001 1 6 6 6 36
 vector 7 Error1.node[1].canNodePort.canPortInput rxDFLatency:vector ETV
 attr interpolationmode linear
 attr source timestampAge(rxDF)
 attr title "End-to-end latency of data frames, vector"
 attr unit s
+7	3480 24 14 14 0.005095 0.005095 1 9.5e-005 9.5e-005 9.5e-005 9.025e-009
 vector 8 Error1.node[1].canNodePort.canPortInput rxDFPayloadLatency:vector ETV
 attr interpolationmode linear
 attr source timestampAge(rxDFPayload)
 attr title "End-to-end latency of data frame payload, vector"
 attr unit s
+8	3504 24 14 14 0.005095 0.005095 1 9.5e-005 9.5e-005 9.5e-005 9.025e-009
 vector 9 Error1.node[1].bufferIn[0] rxPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source rxPk
 attr title "RX Packets, vector(packetBytes)"
+9	3528 17 15 15 0.005095 0.005095 1 6 6 6 36
 vector 10 Error1.node[1].bufferIn[0] txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, vector(packetBytes)"
+10	3545 18 15 15 0.005095 0.005095 1 6 6 6 36
 vector 11 Error1.node[1].sinkApp[0] rxDFLatency:vector ETV
 attr interpolationmode linear
 attr source timestampAge(rxDF)
 attr title "End-to-end latency of data frames, vector"
 attr unit s
+11	3563 25 16 16 0.005095 0.005095 1 9.5e-005 9.5e-005 9.5e-005 9.025e-009
 vector 12 Error1.node[1].sinkApp[0] rxDFPayloadLatency:vector ETV
 attr interpolationmode linear
 attr source timestampAge(rxDFPayload)
 attr title "End-to-end latency of data frame payload, vector"
 attr unit s
-0	3168 36 0 17 0 0.008 3 0 0 0 0
-1	3204 9 0 0 0 0 1 0 0 0 0
-2	3213 54 2 18 0.005 0.008 4 6 6 24 144
-3	3267 60 2 24 0.005 0.008048 4 0 1 2 2
-4	3327 60 2 24 0.005 0.008048 4 0 6 12 72
-5	3387 60 2 24 0.005 0.008048 4 0 1 2 2
-6	3447 33 3 19 0.005001 0.008001 2 6 6 12 72
-7	3480 24 14 14 0.005095 0.005095 1 9.5e-005 9.5e-005 9.5e-005 9.025e-009
-8	3504 24 14 14 0.005095 0.005095 1 9.5e-005 9.5e-005 9.5e-005 9.025e-009
-9	3528 17 15 15 0.005095 0.005095 1 6 6 6 36
-10	3545 18 15 15 0.005095 0.005095 1 6 6 6 36
-11	3563 25 16 16 0.005095 0.005095 1 9.5e-005 9.5e-005 9.5e-005 9.025e-009
 12	3588 25 16 16 0.005095 0.005095 1 9.5e-005 9.5e-005 9.5e-005 9.025e-009
-0	3613 13 41 41 0.01 0.01 1 0 0 0 0
-2	3626 26 42 42 0.01 0.01 2 6 6 12 72
-3	3652 13 42 42 0.01 0.01 1 1 1 1 1
-4	3665 13 42 42 0.01 0.01 1 6 6 6 36
-5	3678 13 42 42 0.01 0.01 1 1 1 1 1
-6	3691 17 43 43 0.010001 0.010001 1 6 6 6 36
-

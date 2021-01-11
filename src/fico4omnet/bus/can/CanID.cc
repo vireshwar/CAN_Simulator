@@ -31,11 +31,11 @@
 namespace FiCo4OMNeT {
 
 CanID::CanID(unsigned int setCanID, cModule *setModule, simtime_t setSignInTime, bool setRtr) :
-        canID(setCanID), module(setModule), signInTime(setSignInTime), rtr(setRtr), dlc(0) {
+        canID(setCanID), module(setModule), signInTime(setSignInTime), rtr(setRtr), bitLength(0), dlc(0) {
 }
 
-CanID::CanID(unsigned int setCanID, cModule *setModule, simtime_t setSignInTime, bool setRtr, unsigned int dlc) :
-        canID(setCanID), module(setModule), signInTime(setSignInTime), rtr(setRtr), dlc(dlc) {
+CanID::CanID(unsigned int setCanID, cModule *setModule, simtime_t setSignInTime, bool setRtr, unsigned int bitLength) :
+        canID(setCanID), module(setModule), signInTime(setSignInTime), rtr(setRtr), bitLength(bitLength), dlc((bitLength+7)/8) {
 }
 
 unsigned int CanID::getCanID() const{
@@ -54,12 +54,13 @@ simtime_t CanID::getSignInTime() const {
     return signInTime;
 }
 
-unsigned int CanID::getDlc() const{
-    return dlc;
+
+unsigned int CanID::getBitLength() const{
+    return bitLength;
 }
 
-unsigned int CanID::getBitLength(){
-    return 8*dlc+63;
+unsigned int CanID::getDlc() const{
+    return dlc;
 }
 
 }

@@ -1,0 +1,8 @@
+22:09:34 **** Build of configuration release for project aloha ****
+make MODE=release all 
+Host.cc
+Server.cc
+Creating executable: out/clang-release//aloha.exe
+
+22:09:44 Build Finished. 0 errors, 0 warnings. (took 10s.88ms)
+

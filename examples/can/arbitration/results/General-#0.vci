@@ -1,15 +1,15 @@
-file 5794 1608631562                                            
+file 4848 1609866089                                            
 version 2
-run General-0-20201222-15:34:08-12156
+run General-0-20210105-22:30:49-15312
 attr configname General
-attr datetime 20201222-15:34:08
+attr datetime 20210105-22:30:49
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network Canbus
-attr processid 12156
+attr processid 15312
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -105,35 +105,18 @@ vector 13 Canbus.node[1].bufferOut txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, vector(packetBytes)"
-vector 14 Canbus.node[2].bufferOut rxPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source rxPk
-attr title "RX Packets, vector(packetBytes)"
-vector 15 Canbus.node[2].bufferOut length:vector ETV
-attr interpolationmode sample-hold
-attr source length
-attr title "Queue Length, vector"
-attr unit packets
-vector 16 Canbus.node[2].bufferOut size:vector ETV
-attr interpolationmode sample-hold
-attr source size
-attr title "Queue Size, vector"
-attr unit B
-0	4711 57 0 75 0 0.53 5 0 0 0 0
-1	4768 35 0 76 0 0.53 3 0 0 0 0
-2	4803 22 0 77 0 0.53 2 0 0 0 0
-3	4825 9 0 0 0 0 1 0 0 0 0
-4	4834 9 0 0 0 0 1 0 0 0 0
-5	4843 111 3 78 0.5 0.53 9 9 9 81 729
-6	4954 112 3 86 0.5 0.53068 8 0 2 6 8
-7	5066 113 3 86 0.5 0.53068 8 0 18 54 648
-8	5179 246 3 86 0.5 0.53068 17 0 3 28 60
-9	5425 63 5 81 0.50001 0.53001 4 9 9 36 324
-10	5488 90 41 81 0.51 0.53001 6 9 9 54 486
-11	5578 45 41 79 0.51 0.53 3 0 1 2 2
-12	5623 45 41 79 0.51 0.53 3 0 9 18 162
-13	5668 34 47 86 0.51068 0.53068 2 9 9 18 162
-14	5702 62 80 86 0.53 0.53068 4 9 9 36 324
-15	5764 14 80 80 0.53 0.53 1 1 1 1 1
-16	5778 14 80 80 0.53 0.53 1 9 9 9 81
+0	4237 44 0 38 0 0.51 4 0 0 0 0
+1	4281 22 0 39 0 0.51 2 0 0 0 0
+2	4303 9 0 0 0 0 1 0 0 0 0
+3	4312 9 0 0 0 0 1 0 0 0 0
+4	4321 9 0 0 0 0 1 0 0 0 0
+5	4330 85 3 40 0.5 0.51 7 9 9 63 567
+6	4415 83 3 47 0.5 0.51068 6 0 2 5 7
+7	4498 84 3 47 0.5 0.51068 6 0 18 45 567
+8	4582 127 3 47 0.5 0.51068 9 0 2 12 20
+9	4709 47 5 42 0.50001 0.51001 3 9 9 27 243
+10	4756 45 41 42 0.51 0.51001 3 9 9 27 243
+11	4801 14 41 41 0.51 0.51 1 1 1 1 1
+12	4815 14 41 41 0.51 0.51 1 9 9 9 81
+13	4829 17 47 47 0.51068 0.51068 1 9 9 9 81
 

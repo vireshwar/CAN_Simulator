@@ -100,13 +100,21 @@ void CanBusLogic::handleMessage(cMessage *msg) {
             send(msg->dup(), "gate$o");
             colorIdle();
             emit(stateSignal, static_cast<long>(State::IDLE));
-            if (scheduledDataFrame != nullptr) {
+//            if (scheduledDataFrame != nullptr) {
+//                cancelEvent(scheduledDataFrame);
+//            }
+//            delete scheduledDataFrame;
+//            scheduledDataFrame = nullptr;
+//            eraseids.clear();
+            ErrorFrame *ef = check_and_cast<ErrorFrame *>(msg);
+            if (scheduledDataFrame != nullptr && ef->getActive()) {
                 cancelEvent(scheduledDataFrame);
+                delete scheduledDataFrame;
+                scheduledDataFrame = nullptr;
+                eraseids.clear();
             }
-            delete scheduledDataFrame;
-            scheduledDataFrame = nullptr;
+
             errored = false;
-            eraseids.clear();
         }
 
         grantSendingPermission();
@@ -141,11 +149,14 @@ void CanBusLogic::grantSendingPermission() {
 
         else if(id->getCanID() == currentSendingID &&(id->getDlc()<sendByteLength))
         {
+
             sendingNode = dynamic_cast<CanOutputBuffer*> (id->getNode());
             sendByteLength = std::min(sendByteLength,id->getDlc());
             sendingid = id;
             currsit = id->getSignInTime();
         }
+
+//        std::cout << "dlc: "<<id->getDlc() << " "<<simTime() << endl;
     }
 
     int sendcount = 0;
@@ -322,10 +333,10 @@ void CanBusLogic::registerForArbitration(unsigned int canID, cModule *module,
 }
 
 void CanBusLogic::registerForArbitration(unsigned int canID, cModule *module,
-        simtime_t signInTime, bool rtr, unsigned int bytelength) {
+        simtime_t signInTime, bool rtr, unsigned int bitlength) {
     Enter_Method_Silent
     ();
-    ids.push_back(new CanID(canID, module, signInTime, rtr, bytelength));
+    ids.push_back(new CanID(canID, module, signInTime, rtr, bitlength));
     emit(arbitrationLengthSignal, static_cast<unsigned long>(ids.size()));
     if (idle) {
         cMessage *self = new cMessage("idle_signin");

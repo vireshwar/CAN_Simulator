@@ -59,7 +59,7 @@ class CanID {
 		 */
 		CanID(unsigned int setCanID, cModule *setModule, simtime_t setSignInTime, bool setRtr);
 
-		CanID(unsigned int setCanID, cModule *setModule, simtime_t setSignInTime, bool setRtr, unsigned int dlc);
+		CanID(unsigned int setCanID, cModule *setModule, simtime_t setSignInTime, bool setRtr, unsigned int bitLength); //, unsigned int dlc
 
 		/**
 	     * @brief Getter for the can ID
@@ -100,9 +100,10 @@ class CanID {
          * @return dlc
          *
          */
-        unsigned int getDlc() const;
 
-        unsigned int getBitLength();
+        unsigned int getBitLength() const;
+
+        unsigned int getDlc() const;
 
 	private:
 		/**
@@ -124,6 +125,8 @@ class CanID {
 		* @brief identifier whether the frame is a data or remote frame.
 		*/
 		bool rtr;
+
+		unsigned int bitLength;
 
 		unsigned int dlc;
 };

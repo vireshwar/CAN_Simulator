@@ -217,6 +217,7 @@ unsigned int CanTrafficSourceAppBase::checkAndReturnID(unsigned int canID) {
 unsigned int CanTrafficSourceAppBase::calculateLength(unsigned int dataLength) {
     unsigned int arbFieldLength = 0;
     if (canVersion.compare("2.0B") == 0) {
+
         arbFieldLength += ARBITRATIONFIELD29BIT;
     }
     return (arbFieldLength + DATAFRAMECONTROLBITS

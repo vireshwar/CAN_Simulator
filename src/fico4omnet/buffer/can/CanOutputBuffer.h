@@ -107,7 +107,7 @@ protected:
      */
     virtual void registerForArbitration(unsigned int canID, bool rtr);
 
-    virtual void registerForArbitration(unsigned int canID, bool rtr, unsigned int bytelength);
+    virtual void registerForArbitration(unsigned int canID, bool rtr, unsigned int bitlength);
 
     /**
      * @brief Unregister from arbitration at the bus.
