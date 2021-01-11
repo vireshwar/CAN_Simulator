@@ -56,6 +56,7 @@ CanBusLogic::CanBusLogic() {
     bandwidth = 0;
     currentSendingID = 0;
     sendingNode = nullptr;
+    sendingId = nullptr;
 }
 CanBusLogic::~CanBusLogic() {
     if(scheduledDataFrame){
@@ -134,7 +135,7 @@ void CanBusLogic::grantSendingPermission() {
     currentSendingID = INT_MAX;
     sendingNode = nullptr;
     unsigned int sendByteLength = INT_MAX;
-    CanID* sendingid = nullptr;
+    sendingId = nullptr;
 
 //    std::cout<<ids.size()<<" Ids length\n";
     for (std::list<CanID*>::iterator it = ids.begin(); it != ids.end(); ++it) {
@@ -142,7 +143,7 @@ void CanBusLogic::grantSendingPermission() {
         if (id->getCanID() < currentSendingID) {
             currentSendingID = id->getCanID();
             sendingNode = dynamic_cast<CanOutputBuffer*> (id->getNode());
-            sendingid = id;
+            sendingId = id;
             sendByteLength = id->getDlc();
             currsit = id->getSignInTime();
         }
@@ -152,7 +153,7 @@ void CanBusLogic::grantSendingPermission() {
 
             sendingNode = dynamic_cast<CanOutputBuffer*> (id->getNode());
             sendByteLength = std::min(sendByteLength,id->getDlc());
-            sendingid = id;
+            sendingId = id;
             currsit = id->getSignInTime();
         }
 
@@ -224,10 +225,11 @@ void CanBusLogic::grantSendingPermission() {
 
              if(sendingNode != id->getNode() || id->getCanID()!= currentSendingID)
              {
-                 sendingNotCompleted(id,sendingid->getBitLength());
+                 sendingNotCompleted(id,sendingId->getBitLength());
+                 delete *(ite);
              }
-             delete *(ite);
              ids.erase(ite);
+
         }
 
         CanOutputBuffer* controller = check_and_cast<CanOutputBuffer *>(
@@ -241,6 +243,10 @@ void CanBusLogic::grantSendingPermission() {
 }
 
 void CanBusLogic::sendingCompleted() {
+
+    delete sendingId;
+    sendingId = nullptr;
+
     colorIdle();
     emit(stateSignal, static_cast<long>(State::IDLE));
     CanOutputBuffer* controller = check_and_cast<CanOutputBuffer*>(sendingNode);
@@ -423,6 +429,21 @@ void CanBusLogic::colorError() {
             getParentModule()->gate("gate$i", gateIndex)->getPreviousGate()->getDisplayString().setTagArg(
                     "ls", 1, "3");
         }
+    }
+}
+
+simtime_t CanBusLogic::getNextIdle() {
+
+    if(sendingId == nullptr)
+    {
+        return simTime();
+    }
+    else
+    {
+        unsigned int length = sendingId->getBitLength();
+        simtime_t nextidle;
+        nextidle = (sendingId->getSignInTime()) + ((1+length)/bandwidth);
+        return nextidle;
     }
 }
 

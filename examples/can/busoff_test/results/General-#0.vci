@@ -1,15 +1,15 @@
-file 14676 1610252911                                           
+file 6478 1610362795                                            
 version 2
-run General-0-20210110-09:56:42-3180
+run General-0-20210111-16:29:12-10892
 attr configname General
-attr datetime 20210110-09:56:42
+attr datetime 20210111-16:29:12
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network Busoff_test1
-attr processid 3180
+attr processid 10892
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -80,54 +80,19 @@ vector 10 Busoff_test1.Adversary.bufferOut txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source txPk
 attr title "TX Packets, vector(packetBytes)"
-vector 11 Busoff_test1.Victim.bufferOut txPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source txPk
-attr title "TX Packets, vector(packetBytes)"
-vector 12 Busoff_test1.Receiver.canNodePort.canPortInput rxDFLatency:vector ETV
-attr interpolationmode linear
-attr source timestampAge(rxDF)
-attr title "End-to-end latency of data frames, vector"
-attr unit s
-vector 13 Busoff_test1.Receiver.canNodePort.canPortInput rxDFPayloadLatency:vector ETV
-attr interpolationmode linear
-attr source timestampAge(rxDFPayload)
-attr title "End-to-end latency of data frame payload, vector"
-attr unit s
-vector 14 Busoff_test1.Receiver.bufferIn[0] rxPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source rxPk
-attr title "RX Packets, vector(packetBytes)"
-vector 15 Busoff_test1.Receiver.bufferIn[0] txPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source txPk
-attr title "TX Packets, vector(packetBytes)"
-vector 16 Busoff_test1.Receiver.sinkApp[0] rxDFLatency:vector ETV
-attr interpolationmode linear
-attr source timestampAge(rxDF)
-attr title "End-to-end latency of data frames, vector"
-attr unit s
-vector 17 Busoff_test1.Receiver.sinkApp[0] rxDFPayloadLatency:vector ETV
-attr interpolationmode linear
-attr source timestampAge(rxDFPayload)
-attr title "End-to-end latency of data frame payload, vector"
-attr unit s
-0	4297 275 0 1983 0 13.3 20 0 0 0 0
-1	4572 275 0 1984 0 13.3 20 0 0 0 0
-2	4847 9 0 0 0 0 1 0 0 0 0
-3	4856 1221 3 1987 0.7 13.30001 73 10 10 730 7300
-4	6077 594 3 1985 0.7 13.3 37 0 1 19 19
-5	6671 613 3 1985 0.7 13.3 37 0 10 190 1900
-6	7284 2073 3 1992 0.7 13.30068 125 0 2 123 193
-7	9357 532 4 1986 0.7 13.3 38 9 9 342 3078
-8	9889 613 4 1992 0.7 13.30068 38 0 1 19 19
-9	10502 613 4 1992 0.7 13.30068 38 0 9 171 1539
-10	11115 651 5 1987 0.70001 13.30001 35 9 9 315 2835
-11	11766 364 1049 1967 0.70973 12.60077 18 10 10 180 1800
-12	12130 454 1062 1980 0.71123 12.60227 18 0.00227 0.01123 0.04982 0.0002137122
-13	12584 454 1062 1980 0.71123 12.60227 18 0.00227 0.01123 0.04982 0.0002137122
-14	13038 364 1063 1981 0.71123 12.60227 18 10 10 180 1800
-15	13402 364 1063 1981 0.71123 12.60227 18 10 10 180 1800
-16	13766 454 1064 1982 0.71123 12.60227 18 0.00227 0.01123 0.04982 0.0002137122
-17	14220 454 1064 1982 0.71123 12.60227 18 0.00227 0.01123 0.04982 0.0002137122
+0	2936 20 0 1 0 0.7 2 0 0 0 0
+1	2956 20 0 2 0 0.7 2 0 0 0 0
+2	2976 9 0 0 0 0 1 0 0 0 0
+3	2985 328 3 1015 0.7 0.70897 19 10 10 190 1900
+4	3313 11 3 3 0.7 0.7 1 1 1 1 1
+5	3324 12 3 3 0.7 0.7 1 10 10 10 100
+6	3336 1097 3 1447 0.7 0.71931 64 0 2 66 100
+7	4433 291 4 1447 0.7 0.71931 17 9 9 153 1377
+8	4724 548 4 1447 0.7 0.71931 31 0 1 16 16
+9	5272 548 4 1447 0.7 0.71931 31 0 9 144 1296
+10	5820 588 5 1449 0.70001 0.71932 32 9 9 288 2592
+6	6408 18 1455 1455 0.71999 0.71999 1 0 0 0 0
+8	6426 18 1455 1455 0.71999 0.71999 1 0 0 0 0
+9	6444 18 1455 1455 0.71999 0.71999 1 0 0 0 0
+0	6462 14 1463 1463 1.4 1.4 1 0 0 0 0
 

@@ -98,6 +98,10 @@ public:
 
     void setRetransmitDF();
 
+    CanDataFrame* generateClutter();
+
+    void handlePassiveFlag();
+
 protected:
     /**
      * @brief This method registers a frame at the bus for arbitration.
@@ -135,6 +139,11 @@ private:
     * @brief Counts 8 receccisive bits after errorFrame transmission to check
     */
     unsigned int delimCounter = 0;
+
+    /**
+    * @brief Counts 6 receccisive bits for passive error flag transmission
+    */
+    unsigned int passiveFlagCtr = 0;
 };
 
 }

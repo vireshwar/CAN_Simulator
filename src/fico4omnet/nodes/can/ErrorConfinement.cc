@@ -17,6 +17,7 @@ ErrorConfinement::ErrorConfinement() {
     TEC = 0;
     REC = 0;
     errorState = 0;
+    clutterCount = 0;
 }
 
 ErrorConfinement::~ErrorConfinement() {
@@ -55,6 +56,7 @@ unsigned int ErrorConfinement::getControllerState(){
     return this->controllerState;
 }
 
+
 void ErrorConfinement::transErrorReceived(){
     TEC = TEC+8;
     std::string display = "TEC = "+std::to_string(TEC);
@@ -87,6 +89,26 @@ void ErrorConfinement::transSuccess(){
         if(TEC<128 && errorState!=0)
             errorState = 0;
     }
+}
+
+void ErrorConfinement::incClutterCount(){
+    this->clutterCount++;
+}
+
+bool ErrorConfinement::checkClutterCount(){
+    return (this->clutterCount > 0 && this->clutterCount < 15);
+}
+
+void ErrorConfinement::resetClutterCount(){
+    this->clutterCount=0;
+}
+
+bool ErrorConfinement::getSendClutter(){
+    return this->sendClutter;
+}
+
+void ErrorConfinement::setSendClutter(bool par){
+    this->sendClutter = par;
 }
 
 }

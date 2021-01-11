@@ -107,6 +107,13 @@ DUPPP
     */
     bool isIdle();
 
+
+    /**
+     * @brief Calculates next idle bit-time
+     *
+     */
+    simtime_t getNextIdle();
+
 protected:
     enum class State {
         IDLE = 0, TRANSMITTING = 1
@@ -142,6 +149,7 @@ protected:
      *
      */
     virtual void handleMessage(cMessage *msg);
+
 
 private:
     /**
@@ -263,6 +271,11 @@ private:
      * @brief NodeController which is currently sending.
      */
     cModule *sendingNode;
+
+    /**
+     * @brief CanID object which is currently being sent.
+     */
+    CanID* sendingId;
 
     /**
      * @brief Sending permission for the frame with the highest priority is sent to the according node or the bus state is set to idle.

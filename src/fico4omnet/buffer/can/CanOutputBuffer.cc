@@ -49,15 +49,32 @@ void CanOutputBuffer::handleMessage(cMessage *msg) {
     }
     if (msg->isSelfMessage()) {
         ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+        CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
+                getParentModule()->getSubmodule("canNodePort")->getSubmodule(
+                        "canPortOutput"));
         unsigned int cs =  ec->getControllerState();
-        if(cs == 0){
+
+        if(ec->getSendClutter())
+        {
+            cMessage* clutter = generateClutter();
+            putFrame(clutter);
+            ec->incClutterCount();
+            ec->setSendClutter(false);
+        }
+
+        else if(cs == 0){
             ec->setControllerState(1);
-            CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
-                    getParentModule()->getSubmodule("canNodePort")->getSubmodule(
-                            "canPortOutput"));
+
             ErrorFrame* ef = generateError();
             ec->transErrorReceived();
             sendDirect(ef, portOutput, "directIn");
+        }
+
+        else if(cs==1)
+        {
+            if(ec->getErrorState()==1){
+                handlePassiveFlag();
+            }
         }
         else if(cs == 2){
             if(delimCounter==8){
@@ -69,6 +86,16 @@ void CanOutputBuffer::handleMessage(cMessage *msg) {
                 handleDelimiter();
             }
         }
+        else if(cs==3){
+            if(ec->getErrorState()==1) {
+                ErrorFrame* ef = generateError();
+                sendDirect(ef, portOutput, "directIn");
+                ec->setControllerState(1);
+            }
+        }
+
+        //CHECK PASSIVE
+
         delete msg;
     }
     else if (msg->arrivedOn("in") || msg->arrivedOn("directIn")) {
@@ -136,8 +163,34 @@ void CanOutputBuffer::sendingCompleted() {
     deleteFrame(currentFrame);
     currentFrame = nullptr;
 
+    CanPortOutput* cpo = check_and_cast<CanPortOutput*>(getParentModule()->getSubmodule("canNodePort")->getSubmodule("canPortOutput"));
+    double bandwidth = cpo->getBandwidth();
+
     ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
     ec->transSuccess();
+
+    //only for SFBO adversary
+    if(ec->getTEC()==127)
+    {
+        ec->setSendClutter(true);
+        cMessage *self = new cMessage("idle_signin");
+        scheduleAt(simTime()+(1)/bandwidth, self);
+
+    }
+    else if(ec->checkClutterCount())
+    {
+        ec->setSendClutter(true);
+        cMessage *self = new cMessage("idle_signin");
+        scheduleAt(simTime()+(1)/bandwidth, self);
+
+    }
+    else
+    {
+        ec->setSendClutter(false);
+        ec->resetClutterCount();
+    }
+
+
     CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
             getParentModule()->getSubmodule("canNodePort")->getSubmodule(
                     "canPortOutput"));
@@ -227,6 +280,13 @@ void CanOutputBuffer::handleDelimiter(){
     else if(delimCounter){
         delimCounter = 0;
         //passive -> controllerTs=1 and TEC+=8
+        ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+        if(ec->getErrorState()==1)
+        {
+            ec->transErrorReceived();
+            ec->setControllerState(1);
+        }
+
     }
 
     cMessage *self = new cMessage("idle_signin");
@@ -244,6 +304,47 @@ void CanOutputBuffer::retransmitDF() {
 void CanOutputBuffer::setRetransmitDF() {
     //Verify
     retransmitDataFrame = currentFrame;
+}
+
+
+CanDataFrame* CanOutputBuffer::generateClutter()
+{
+    CanDataFrame *can_msg = new CanDataFrame("Clutter");
+//    CanDataFrame *can_msg = new CanDataFrame("message");
+//    can_msg->setCanID(0);
+    can_msg->setCanID(1);
+    can_msg->setRtr(0);
+    can_msg->setBitLength(67);
+    can_msg->setPeriod(0);
+
+    return can_msg;
+
+}
+
+void CanOutputBuffer::handlePassiveFlag()
+{
+    CanPortOutput* cpo = check_and_cast<CanPortOutput*>(getParentModule()->getSubmodule("canNodePort")->getSubmodule("canPortOutput"));
+    double bandwidth = cpo->getBandwidth();
+
+    CanBusLogic *canBusLogic =
+                dynamic_cast<CanBusLogic*> (getParentModule()->gate("gate$o")->getPathEndGate()->getOwnerModule()->getParentModule()->getSubmodule(
+                        "canBusLogic"));
+    simtime_t send_time = canBusLogic->getNextIdle() - (6.0/bandwidth);
+
+    ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+
+    if(send_time > simTime() )
+    {
+        cMessage *self = new cMessage("idle_signin");
+        scheduleAt(send_time, self);
+        ec->setControllerState(3);
+
+    }
+    else
+    {
+        ErrorFrame* ef = generateError();
+        sendDirect(ef, cpo, "directIn");
+    }
 }
 
 }

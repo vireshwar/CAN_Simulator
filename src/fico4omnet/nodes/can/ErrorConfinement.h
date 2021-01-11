@@ -46,6 +46,16 @@ public:
 
     void transSuccess();
 
+    void incClutterCount();
+
+    bool checkClutterCount();
+
+    void resetClutterCount();
+
+    bool getSendClutter();
+
+    void setSendClutter(bool par);
+
 private:
     unsigned int TEC;
 
@@ -57,8 +67,13 @@ private:
     * @brief 0 -> Normal Transmitting State
     * 1 -> Error Flag Transmission
     * 2 -> Delimiter
+    * 3 -> retransmit passive error flag
     */
     unsigned int controllerState = 0;
+
+    unsigned int clutterCount = 0;
+
+    bool sendClutter = false;
 };
 
 
