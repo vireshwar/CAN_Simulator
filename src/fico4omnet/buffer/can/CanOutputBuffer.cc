@@ -232,7 +232,7 @@ void CanOutputBuffer::sendingNotCompleted(unsigned int canID,bool error,unsigned
         }
         else if(state==1 && newTEC<256){
             cMessage *self = new cMessage("idle_signin");
-            scheduleAt(simTime()+(bitlength-6)/bandwidth, self);
+            scheduleAt(simTime()+(bitlength-8)/bandwidth, self);
         }
         else  ec->transErrorReceived();
     }
@@ -329,7 +329,7 @@ void CanOutputBuffer::handlePassiveFlag()
     CanBusLogic *canBusLogic =
                 dynamic_cast<CanBusLogic*> (getParentModule()->gate("gate$o")->getPathEndGate()->getOwnerModule()->getParentModule()->getSubmodule(
                         "canBusLogic"));
-    simtime_t send_time = canBusLogic->getNextIdle() - (6.0/bandwidth);
+    simtime_t send_time = canBusLogic->getNextIdle() - (8.0/bandwidth);
 
     ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
 
