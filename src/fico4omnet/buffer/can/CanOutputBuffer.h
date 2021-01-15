@@ -140,10 +140,10 @@ private:
     */
     unsigned int delimCounter = 0;
 
-    /**
-    * @brief Counts 6 receccisive bits for passive error flag transmission
-    */
-    unsigned int passiveFlagCtr = 0;
+//    /**
+//    * @brief Counts 6 receccisive bits for passive error flag transmission
+//    */
+//    unsigned int passiveFlagCtr = 0;
 };
 
 }

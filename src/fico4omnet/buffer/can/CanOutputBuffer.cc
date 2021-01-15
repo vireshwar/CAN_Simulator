@@ -47,8 +47,10 @@ void CanOutputBuffer::handleMessage(cMessage *msg) {
         delete msg;
         return;
     }
+
+    ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+
     if (msg->isSelfMessage()) {
-        ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
         CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
                 getParentModule()->getSubmodule("canNodePort")->getSubmodule(
                         "canPortOutput"));
@@ -99,8 +101,14 @@ void CanOutputBuffer::handleMessage(cMessage *msg) {
         delete msg;
     }
     else if (msg->arrivedOn("in") || msg->arrivedOn("directIn")) {
-        recordPacketReceived(msg);
-        putFrame(msg);
+
+        if(ec->getControllerState()==0 && currentFrame == nullptr) {
+
+            recordPacketReceived(msg);
+            putFrame(msg);
+
+        }
+
     }
 }
 
@@ -311,7 +319,6 @@ CanDataFrame* CanOutputBuffer::generateClutter()
 {
     CanDataFrame *can_msg = new CanDataFrame("Clutter");
 //    CanDataFrame *can_msg = new CanDataFrame("message");
-//    can_msg->setCanID(0);
     can_msg->setCanID(1);
     can_msg->setRtr(0);
     can_msg->setBitLength(67);

@@ -79,13 +79,14 @@ void CanPortInput::handleMessage(cMessage *msg) {
         }
     } else if (CanDataFrame *df = dynamic_cast<CanDataFrame *>(msg)) {
 //        if (checkExistence(df)) {
-            if (checkExistence(df) && !amITheSendingNode()) {
+        if (checkExistence(df) && !amITheSendingNode()) {
             int rcverr = intuniform(0, 99);
             if (rcverr < errorperc) {
                 generateReceiveError(df);
             }
             receiveMessage(df);
-        } else {
+        }
+        else {
             if (scheduledDataFrame != nullptr) {
                 cancelEvent(scheduledDataFrame);
             }

@@ -48,7 +48,8 @@ CanBusLogic::CanBusLogic() {
     errored = false;
     idle = true;
 
-    scheduledDataFrame = new CanDataFrame();
+    //scheduledDataFrame = new CanDataFrame();
+    scheduledDataFrame = nullptr;
 
     numFramesSent = 0;
     numBitsSent = 0;
@@ -118,7 +119,8 @@ void CanBusLogic::handleMessage(cMessage *msg) {
             errored = false;
         }
 
-        grantSendingPermission();
+        if (scheduledDataFrame == nullptr)
+            grantSendingPermission();
     } else if (dynamic_cast<CanDataFrame *>(msg)) {
         colorBusy();
         emit(stateSignal, static_cast<long>(State::TRANSMITTING));
@@ -249,7 +251,9 @@ void CanBusLogic::sendingCompleted() {
 
     colorIdle();
     emit(stateSignal, static_cast<long>(State::IDLE));
+    std::cout << "sendingComp bef"<<endl;
     CanOutputBuffer* controller = check_and_cast<CanOutputBuffer*>(sendingNode);
+    std::cout << "sendingComp aft"<<endl;
     controller->sendingCompleted();
 
 //    CanID *sendingid;
