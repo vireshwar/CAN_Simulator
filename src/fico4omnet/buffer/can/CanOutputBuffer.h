@@ -74,12 +74,6 @@ public:
     void sendingNotCompleted(unsigned int canID,bool error,unsigned int bitlength);
 
 
-    unsigned int getErrorState();
-
-    unsigned int getControllerState();
-
-    void retransmitDF();
-
     /**
      * @brief Puts the frame into the collection and informs the connected gates about the receiption.
      *
@@ -89,18 +83,15 @@ public:
     virtual void putFrame(cMessage* msg);
 
     /**
-     * @brief Bit-wise Delimiter Handling
-     *
-     * @param msg The frame to put in the buffer.
-     *
-     */
-    void handleDelimiter();
+    * @brief Bit-wise Delimiter Handling
+    *
+    * @param msg The frame to put in the buffer.
+    *
+    */
+   void handleDelimiter();
 
-    void setRetransmitDF();
+   void setRetransmitDF();
 
-    CanDataFrame* generateClutter();
-
-    void handlePassiveFlag();
 
 protected:
     /**
@@ -128,22 +119,37 @@ protected:
     virtual void handleMessage(cMessage *msg);
 
 private:
+
+    unsigned int getErrorState();
+
+    unsigned int getControllerState();
+
+    void retransmitDF();
+
+    void sendRetransmitDF();
+
+    CanDataFrame* generateClutter();
+
+    void handlePassiveFlag();
+
+    ErrorFrame* generateError();
+
     /**
     * @brief Currently scheduled Data Frame
     */
     CanDataFrame *retransmitDataFrame;
 
-    ErrorFrame* generateError();
-
     /**
-    * @brief Counts 8 receccisive bits after errorFrame transmission to check
+    * @brief Counts 8 recessive bits after errorFrame transmission to check
     */
     unsigned int delimCounter = 0;
 
-//    /**
-//    * @brief Counts 6 receccisive bits for passive error flag transmission
-//    */
-//    unsigned int passiveFlagCtr = 0;
+    /**
+    * @brief true when retransmission is needed, set to false
+    *  after registering for arbitration
+    */
+    bool retransmit = false;
+
 };
 
 }

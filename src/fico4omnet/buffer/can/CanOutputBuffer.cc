@@ -56,7 +56,13 @@ void CanOutputBuffer::handleMessage(cMessage *msg) {
                         "canPortOutput"));
         unsigned int cs =  ec->getControllerState();
 
-        if(ec->getSendClutter())
+
+        if(retransmit)
+        {
+            sendRetransmitDF();
+            retransmit = false;
+        }
+        else if(ec->getSendClutter())
         {
             cMessage* clutter = generateClutter();
             putFrame(clutter);
@@ -171,8 +177,10 @@ void CanOutputBuffer::sendingCompleted() {
     deleteFrame(currentFrame);
     currentFrame = nullptr;
 
-    CanPortOutput* cpo = check_and_cast<CanPortOutput*>(getParentModule()->getSubmodule("canNodePort")->getSubmodule("canPortOutput"));
-    double bandwidth = cpo->getBandwidth();
+    CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
+                getParentModule()->getSubmodule("canNodePort")->getSubmodule(
+                        "canPortOutput"));
+    double bandwidth = portOutput->getBandwidth();
 
     ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
     ec->transSuccess();
@@ -182,14 +190,14 @@ void CanOutputBuffer::sendingCompleted() {
     {
         ec->setSendClutter(true);
         cMessage *self = new cMessage("idle_signin");
-        scheduleAt(simTime()+(1)/bandwidth, self);
+        scheduleAt(simTime()+(3)/bandwidth, self);
 
     }
     else if(ec->checkClutterCount())
     {
         ec->setSendClutter(true);
         cMessage *self = new cMessage("idle_signin");
-        scheduleAt(simTime()+(1)/bandwidth, self);
+        scheduleAt(simTime()+(3)/bandwidth, self);
 
     }
     else
@@ -199,9 +207,6 @@ void CanOutputBuffer::sendingCompleted() {
     }
 
 
-    CanPortOutput* portOutput = check_and_cast<CanPortOutput*>(
-            getParentModule()->getSubmodule("canNodePort")->getSubmodule(
-                    "canPortOutput"));
     portOutput->sendingCompleted();
 }
 
@@ -302,7 +307,29 @@ void CanOutputBuffer::handleDelimiter(){
 }
 
 void CanOutputBuffer::retransmitDF() {
-    //add IFS
+
+    //generating self message after IFS
+    ErrorConfinement* ec =  check_and_cast<ErrorConfinement*>(getParentModule()->getSubmodule("errorConfinement"));
+
+    CanPortOutput* cpo = check_and_cast<CanPortOutput*>(getParentModule()->getSubmodule("canNodePort")->getSubmodule("canPortOutput"));
+    double bandwidth = cpo->getBandwidth();
+
+    cMessage *self = new cMessage("idle_signin");
+
+    if(ec->getErrorState()==0) //Active node IFS - 3
+    {
+        scheduleAt(simTime()+3/bandwidth, self);
+    }
+    else if(ec->getErrorState()==1) //Passive Transmitting node IFS - 3+8=11
+    {
+        scheduleAt(simTime()+11/bandwidth, self);
+    }
+
+    retransmit = true;
+
+}
+
+void CanOutputBuffer::sendRetransmitDF() {
     if(retransmitDataFrame != nullptr){
         registerForArbitration(retransmitDataFrame->getCanID(), retransmitDataFrame->getRtr(), (unsigned int)retransmitDataFrame->getBitLength());
         retransmitDataFrame = nullptr;
